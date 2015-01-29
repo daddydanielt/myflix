@@ -6,5 +6,5 @@
       - category.videos.each do |video|
         .video.col-sm-2(style="padding-top:10px") 
           =# link_to image_tag("#{video.small_cover_url}"), video_path(video)
-          = link_to "", nil do
+          = link_to video_path(video), nil do
             %img(src="#{video.small_cover_url}") 

@@ -1,0 +1,22 @@
+
+.col-md-12
+  = form_for @video, :builder => MyFormBuilder do |f| 
+    .form_group
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    .form_group
+      = f.label :description
+      = f.text_field :description, class: 'form-control'
+    .form_group
+      = f.submit "Add New Video", class: 'btn btn-default'
+
+.col-md-12
+  = my_form_for @video do |f|
+    .form_group
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    .form_group
+      = f.label :description
+      = f.text_field :description, class: 'form-control'
+    .from_group
+      = f.submit "Add New Video", class: 'btn btn-default'
