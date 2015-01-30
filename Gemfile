@@ -10,6 +10,14 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 
+group :secure do
+  # the OpenBSD bcrypt() password hashing algorithm
+  # to perform one way hash
+  #gem 'bcrypt-ruby', '~> 3.0.0' #for rails 4.0.0
+  gem 'bcrypt-ruby'
+
+end
+
 group :development do
   gem 'thin'
   gem "better_errors"

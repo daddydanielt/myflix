@@ -1,17 +1,26 @@
 class UsersController < ApplicationController
 
+  def front
+  end
+
   def new
-    @user =  User.new
+    @user =  User.new    
   end
 
   def create
-    mass_assignment_attributes = user_params
-    @user = User.new(mass_assignment_attributes)
+    @user = User.new(user_params) 
+    if @user.save
+      flash[:notice] = "Successfully register."
+    else
+      render :new
+    end
   end
 
   private
   def user_params
-    params.require(:user).permit(:email, :password)
+    #strong parameters
+    params.require(:user).permit(:email, :password, :full_name)
+    #params[:user].slice(:email,:password)
   end
 
 end
