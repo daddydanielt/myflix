@@ -3,17 +3,18 @@ class SessionsController < ApplicationController
   before_action :signin_params, only: [:create]
 
   def new   
+    redirect_to home_path if current_user
     @user = User.new    
   end
 
   def create    
     email = signin_params[:email]
     password = signin_params[:password]
-    @user = User.find_by(email: email)    
+    #@user = User.find_by(email: email)    
+    @user = User.where(email: email).first    
     if @user && @user.authenticate(password)
-      session[:user_id] = @user.id
-      flash[:notice]= "Successfully Singin."
-      redirect_to :root
+      session[:user_id] = @user.id      
+      redirect_to home_path, flash: {notice: "Successfull SignIn"}
     else
       flash[:notice] = "Permission denied."
       redirect_to signin_path
@@ -25,7 +26,7 @@ class SessionsController < ApplicationController
       session[:user_id]= nil
       flash[:notice] = "881. You've logged out."    
     end
-    redirect_to front_path
+    redirect_to root_path
   end
 
   private

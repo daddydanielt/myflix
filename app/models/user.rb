@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, on: :create
   validates :password, presence: true, length: {minimum: 3}, on: :create
   validates :full_name, presence: true, on: :create  
+  #validates_presence_of
+  #validates_uniqueness_of
+  
 end

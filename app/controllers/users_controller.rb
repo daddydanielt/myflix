@@ -9,8 +9,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params) 
-    if @user.save
-      flash[:notice] = "Successfully register."
+    if @user.save      
+      #redirect_to signin_path
+      redirect_to signin_path, flash: {notice: "Successfully register.", test: "okokkokokk"}
     else
       render :new
     end

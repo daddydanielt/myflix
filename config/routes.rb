@@ -1,8 +1,10 @@
 Myflix::Application.routes.draw do
   
-  root to: 'videos#index'
+  #root to: 'videos#index'
+  root to: 'pages#front'
 
-  get '/front', to: 'users#front'
+  #get '/front', to: 'users#front'
+  get 'home', to: 'videos#index'
   
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
