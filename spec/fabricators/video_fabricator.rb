@@ -1,0 +1,2 @@
+Fabricator(:video) do      
+end

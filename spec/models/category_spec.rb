@@ -2,6 +2,46 @@ require 'spec_helper'
 
 describe Category do 
   
+#  describe "TDD test" do
+#    #condition: 0(empty),1,many,boundary(at least/at most/equal number)
+#    #example:
+#    #it "display the name when there's no tags" 
+#    #it "display the only tag with word 'tag' when there's one tag"
+#    #it "display name with multiple tags"
+#    #it "display up to four tags"
+#    # lazy -evaluation
+#    let(:subject) { Category.recent_videos }
+#    # immediately create
+#    let!(:subject) { Category.recent_videos }
+#    # the same as
+#    subject-2 { Category.recent_videos }
+#
+#
+#    context "test-1: you can outline a title" do
+#      before to 
+#        v0 = Video.create(title:"1-I am funny", description:"0 funny")
+#        v1 = Video.create(title:"1-I am funny", description:"1 funny")
+#        v2 = Video.create(title:"2-I am funny", description:"2 funny")
+#        v3 = Video.create(title:"3-I am funny", description:"3 funny")
+#        v4 = Video.create(title:"4-I am funny", description:"4 funny")
+#        v5 = Video.create(title:"5-I am funny", description:"5 funny")
+#        v6 = Video.create(title:"6-I am funny", description:"6 funny")
+#        v7 = Video.create(title:"7-I am funny", description:"7 funny")
+#      end
+#      it "tes t-1" do
+#        expect(su bject).to eq([v7,v6,v5,v4,v3,v2])
+#        expect(subject.size).to eq(6)
+#      end
+#    end
+#
+#    context "text-2 " do
+#      #it { expect(subject.recent_videos).to eq([]) }
+#      it { should == [] }
+#    end
+#  end
+
+
+
   #it "has many videos" do
   #  c = Category.create(title:"Funny")
   #  v1 = Video.create(title:"I am funny", description:"1 funny", category: c)
@@ -12,6 +52,10 @@ describe Category do
   #end
   
   it "returns empty array if there's no any video at all" do
+    
+    Fabricator.build(:category)
+
+    
     expect(Category.recent_videos.size).to eq(0)
     expect(Category.recent_videos).to eq([])
   end

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  def require_sign_in
-    redirect_to front_path unless logged_in?
+  def require_sign_in    
+    redirect_to signin_path unless logged_in?
   end
 end

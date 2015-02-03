@@ -1,7 +1,10 @@
 class VideosController < ApplicationController
   before_action :require_sign_in
 
-  def index    
+  def test
+    binding.pry
+  end
+  def index        
     @categories = Category.all
   end
 
@@ -13,11 +16,12 @@ class VideosController < ApplicationController
     end
   end
 
-  def new
+  def new    
     @video = Video.new  
   end
 
   def create
+
     mass_assignment_attributes = video_params
     @video =  Video.new( mass_assignment_attributes )
 
