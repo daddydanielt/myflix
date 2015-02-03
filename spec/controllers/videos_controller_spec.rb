@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe VideosController do
+
+  describe "GET #show" do    
+    it "set @video instance variable."    
+    it "redirect to 'home_path' if @video instance variable isn't existing."
+    it "render the 'show' template if @video is existing"
+  end
+
+  describe "POST #search" do
+    it "set @videos instance variable"
+    it "render 'search' template"  
+  end
+
   #describe "GET #index"  do   
   #  describe "After logged_in" do            
   #    it "sets the @categories variable" do

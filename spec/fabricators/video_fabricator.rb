@@ -1,2 +1,2 @@
-Fabricator(:video) do      
+Fabricator(:video) do        
 end

@@ -1,9 +1,6 @@
 class VideosController < ApplicationController
   before_action :require_sign_in
 
-  def test
-    binding.pry
-  end
   def index        
     @categories = Category.all
   end
@@ -14,6 +11,10 @@ class VideosController < ApplicationController
       flash[:notice] = "There's no this video."
       redirect_to home_path    
     end
+  end
+
+  def search    
+    @videos = Video.search_by_title(params[:search_pattern])           
   end
 
   def new    
@@ -33,9 +34,7 @@ class VideosController < ApplicationController
     end
   end
 
-  def search    
-    @videos = Video.search_by_title(params[:search_pattern])           
-  end
+  
 
   private 
   def video_params

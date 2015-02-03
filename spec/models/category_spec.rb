@@ -53,8 +53,15 @@ describe Category do
   
   it "returns empty array if there's no any video at all" do
     
-    Fabricator.build(:category)
-
+    #ex-1
+    #Fabricate(:category, title:"title-custom")
+    
+    #ex-2
+    #Fabricate(:category) do
+    #  videos(count: 1) { |attrs, i| Fabricate(:video, title: "video_title_#{i}", description: "video_description_#{i}") } 
+    #end
+    
+    #@binding.pry
     
     expect(Category.recent_videos.size).to eq(0)
     expect(Category.recent_videos).to eq([])
