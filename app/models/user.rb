@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_secure_password validations: false #supress the default validations
+  has_secure_password validations: false #supress the default validations, use custom validation
 
   validates :email, presence: true, uniqueness: true, on: :create
   validates :password, presence: true, length: {minimum: 3}, on: :create
