@@ -2,7 +2,10 @@ require 'spec_helper'
 
 
 describe Video,"#search_by_title" do
-   
+  #--->
+  it { should have_many(:reviews).order('created_at DESC') }
+  #--->
+  
   it "returns an empty array if there's no match" do
     v1 = Video.create(title: "Futurama", description: "Space Travel")
     v2 = Video.create(title: "back_to_furture", description: "Time travel")

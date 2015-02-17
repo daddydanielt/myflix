@@ -15,6 +15,8 @@ Category.delete_all
 
 ActiveRecord::Base.connection.reset_pk_sequence!("videos")
 ActiveRecord::Base.connection.reset_pk_sequence!("categories")
+ActiveRecord::Base.connection.reset_pk_sequence!("reviews")
+ActiveRecord::Base.connection.reset_pk_sequence!("users")
 
 Category.create(title: "TV Commedies")
 Category.create(title: "TV Dramas")
@@ -22,12 +24,18 @@ Category.create(title: "Reality TV")
 
 18.times do
   title = ['futurama', 'south_park', 'family_guy'].sample
-  #binding.pry
+  
   Video.create( title: title, 
                 description: 'This is a good movie.', 
                 small_cover_url: "/tmp/#{title}.jpg",
                 big_cover_url: '/tmp/monk_large.jpg',
                 category_id: Random.new.rand(1..Category.all.size) )
 end   
+
+# for Development Testing  
+qqq = User.create(full_name: "QQQ_QQQ", password:"qqq", email: "qqq@teset.com")
+video = Video.create( title: 'futurama', description: 'This is a good movie.', small_cover_url: "/tmp/futurama.jpg", big_cover_url: '/tmp/monk_large.jpg', category_id: Category.first.id )
+review_1  = Review.create(user: qqq, video: video, rating: (1..5).to_a.sample, content: Faker::Lorem.paragraph(20))
+review_2  = Review.create(user: qqq, video: video, rating: (1..5).to_a.sample, content: Faker::Lorem.paragraph(20))
 
 

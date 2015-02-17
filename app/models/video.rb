@@ -4,6 +4,12 @@ class Video < ActiveRecord::Base
   
   belongs_to :category
 
+  #has_many :reviews
+  has_many :reviews, -> { order "created_at DESC" }
+  
+  has_many :my_queues
+
+
   def self.search_by_title(search_pattern)
     
     #quote_search_pattern = search_pattern.gsub(/\\/, '\&\&').gsub(/'/, "''")     

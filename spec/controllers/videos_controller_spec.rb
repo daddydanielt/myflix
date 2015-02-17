@@ -42,6 +42,7 @@ describe VideosController do
         session[:user_id] = Fabricate(:user).id  
         #@video = Fabricate(:video)
       end
+      
       it "sets the @video instance variable" do
         #--->
         #get :show, id: @video.id
@@ -52,6 +53,15 @@ describe VideosController do
         get :show, id: video.id
         expect(assigns(:video)).to eq(video)
         #--->
+      end
+
+      it "sets @reviews for authenticated users" do
+        video = Fabricate(:video)
+        review1  = Fabricate(:review, video: video)
+        review2  = Fabricate(:review, video: video)
+        get :show, id: video.id
+        expect( assigns( :reviews )).to match_array [review1,review2]
+        assigns(:reviews).should =~ [review1,review2]
       end
 
       it "redirect to 'home_path' if @video instance variable isn't existing."

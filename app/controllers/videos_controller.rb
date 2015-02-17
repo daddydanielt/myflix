@@ -6,7 +6,8 @@ class VideosController < ApplicationController
   end
 
   def show    
-    @video = Video.find_by(id: params[:id])            
+    @video = Video.find_by(id: params[:id])    
+    @reviews = @video.reviews        
     if !@video
       flash[:notice] = "There's no this video."
       redirect_to home_path    
@@ -38,6 +39,6 @@ class VideosController < ApplicationController
 
   private 
   def video_params
-    params.require(:video).permit(:title, :description,)
+    params.require(:video).permit(:title, :description)
   end
 end

@@ -15,13 +15,14 @@ Myflix::Application.routes.draw do
   get 'ui(/:action)', controller: 'ui'
   get '/home', to: 'videos#index'
   
+  resources 'my_queues', only: [:index, :create, :destroy]
 
-
-
-  resources 'videos', only: [:show, :new, :create] do
+  resources 'videos', only: [:index, :show, :new, :create] do
     collection do
       post 'search', to: 'videos#search'
     end
+
+    resources 'reviews', only: [:create]
 
     member do 
       post 'comment', to: 'comments#create'

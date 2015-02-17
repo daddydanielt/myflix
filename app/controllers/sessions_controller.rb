@@ -30,15 +30,20 @@ class SessionsController < ApplicationController
   end
 
   private
-  def signin_params    
-    strong_parameters = params.require(:user).permit(:email, :password)    
+  def signin_params            
+    begin      
+      strong_parameters = params.require(:user).permit(:email, :password)        
+      (notice ||= "") << (("Email Address can't be empty! <br/> ".html_safe if strong_parameters[:email].blank?) || "")
+      (notice ||= "") << (("Password can't be empty! <br/> ".html_safe if strong_parameters[:password].blank?) || "")    
+      flash[:notice] = notice.html_safe 
 
-    (notice ||= "") << (("Email Address can't be empty! <br/> ".html_safe if strong_parameters[:email].blank?) || "")
-    (notice ||= "") << (("Password can't be empty! <br/> ".html_safe if strong_parameters[:password].blank?) || "")    
-    flash[:notice] = notice.html_safe 
-
-    #redirect_to signin_path unless !flash[:notice]
-    redirect_to signin_path unless flash[:notice].blank?    
-    return strong_parameters
+      #redirect_to signin_path unless !flash[:notice]
+      redirect_to signin_path unless flash[:notice].blank?    
+      return strong_parameters
+    rescue ActionController::ParameterMissing
+      redirect_to signin_path
+    rescue
+      redirect_to signin_path
+    end
   end
 end

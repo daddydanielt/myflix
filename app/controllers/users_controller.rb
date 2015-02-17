@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   private
   def user_params
     #strong parameters
-    params.require(:user).permit(:email, :password, :full_name)
+    params.require(:video_id).permit! + params.require(:user).permit(:email, :password, :full_name)
     #params[:user].slice(:email,:password)
   end
 
