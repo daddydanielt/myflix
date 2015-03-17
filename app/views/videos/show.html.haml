@@ -21,7 +21,7 @@
             %label Rate this video
             .row
               .col-sm-3                
-                = f.select :rating, options_for_select( (1..5).to_a.map{ |n| pluralize(n, "Star") }),{prompt: 'Select Rating'},{class: 'form-control'}
+                = f.select :rating, options_for_video_review, {prompt: 'Select Rating'},{class: 'form-control', include_blank: true}
           .form-group
             %label Write Review
             .row

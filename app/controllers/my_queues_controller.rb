@@ -16,11 +16,51 @@ class MyQueuesController < ApplicationController
 
   def destroy        
     my_queue = MyQueue.find(params[:id]) 
-    my_queue.delete if current_user.my_queues.include? my_queue     
+    if current_user.my_queues.include? my_queue     
+      my_queue.delete 
+      current_user.normalize_my_queue_list_orders
+    end
     redirect_to my_queues_path    
   end
 
+  def update_all
+    begin
+      update_my_queues
+      current_user.normalize_my_queue_list_orders
+    rescue ActiveRecord::RecordInvalid 
+      flash[:error] = "Invalid list_order number."
+    end
+
+    redirect_to my_queues_path
+  end
+
   private
+  
+  def update_my_queues
+    ActiveRecord::Base.transaction do
+      my_queues = params[:my_queues]      
+      my_queues.each do |my_queue_item|        #         
+        my_queue = MyQueue.find(my_queue_item[:id])
+        if my_queue && my_queue.user == current_user           
+          my_queue.update!(list_order: my_queue_item[:list_order], rating:my_queue_item[:rating])          
+        end
+      end      
+    end 
+  end
+
+  #-->
+  #refacatory to model/user.rb
+  #-->
+  #def normalize_my_queue_list_orders
+  #  current_user.my_queues.each_with_index do |my_queue,index|
+  #    if my_queue.list_order != (index + 1)
+  #      my_queue.list_order = (index + 1) 
+  #      my_queue.save        
+  #    end
+  #  end
+  #end
+  #-->
+
   def new_list_order            
      my_queue = current_user.my_queues.order("list_order DESC").first
     if current_user.my_queues.order("list_order DESC").first.nil?       

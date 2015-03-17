@@ -1,32 +1,55 @@
-%section.my_queue.container
+%section.my_queue.container  
+  /
+    .row
+    %p This is NCCC ECPG Gateway.
+    %form{name: "HPP",method: "post",target: "HPPFrame",ACTION: "https://nccnet-ectest.nccc.com.tw/merchant/HPPRequest"}
+      %div
+        %input{type: "submit",value: "Submit"}      
+        %input{type: "hidden",name: "MerchantID",value: "6600800020"}
+        %input{type: "hidden",name: "TerminalID",value: "70502756"}
+        %input{type: "hidden",name: "Install",value: "0"}
+        %input{type: "hidden",name: "OrderID",value: "0000002"}
+        %input{type: "hidden",name: "TransMode",value: "0"}
+        %input{type: "hidden",name: "TransAmt",value: "1"}
+        %input{type: "hidden",name: "NotifyURL",value: "https://www.test-test.com"}
+        %input{type: "hidden",name: "PrivateData",value: "user_id=1&order_id=1"}
+      %iframe{name: "HPPFrame",id: "mainFrame",height: "600",width: "800",Frameborder: "0"}    
   .row
     .col-sm-10.col-sm-offset-1
       %article
         %header
           %h2 My Queue
-        %table.table
-          %thead
-            %tr
-              %th(width="10%") List Order
-              %th(width="30%") Video Title
-              %th(width="10%") Play
-              %th(width="20%") Rating
-              %th(width="15%") Genre
-              %th(width="15%") Remove
-          %tbody
-            - @my_queues.each do |my_queue|
+        = form_tag update_all_my_queues_path, method: :post do  
+          %table.table
+            %thead
               %tr
-                %td
-                  %input.form-control(type="text" value=' #{my_queue.list_order||= 0}')
-                %td
-                  = link_to my_queue.video_title, video_path(my_queue.video)
-                %td
-                  = button_to "Play", nil, class: "btn btn-default"
-                %td                
-                  = my_queue.rating
-                %td
-                  = link_to my_queue.category_name,""
-                %td
-                  = link_to my_queue_path(my_queue), method: :delete do
-                    %i.glyphicon.glyphicon-remove            
-        = button_to "Update Instant Queue", nil, class: "btn btn-default"
+                %th(width="10%") List Order
+                %th(width="30%") Video Title
+                %th(width="10%") Play
+                %th(width="20%") Rating
+                %th(width="15%") Genre
+                %th(width="15%") Remove
+            %tbody
+              - @my_queues.each do |my_queue|
+                %tr
+                  = hidden_field_tag "my_queues[][id]", my_queue.id
+                  %td                  
+                    = text_field_tag "my_queues[][list_order]", my_queue.list_order ||= 0, class: 'form-control'
+                  %td
+                    = link_to my_queue.video_title, video_path(my_queue.video)
+                  %td
+                    = button_to "Play", nil, class: "btn btn-default"
+                  %td                
+                    / method#1 
+                    = select_tag "my_queues_m1[][rating]", options_for_video_review(my_queue.rating), {class: 'form-control', include_blank: true}
+                    / method#2
+                    - if my_queue.rating                   
+                      %select.form-control(name="my_queues[][rating]")
+                        - 5.times do |i|                        
+                          = ( "<option " + ( my_queue.rating == (i+1) ? "selected='true'" : "" ) +" > #{i+1} </option>" ).html_safe                        
+                  %td
+                    = link_to my_queue.category_name,""
+                  %td
+                    = link_to my_queue_path(my_queue), method: :delete do
+                      %i.glyphicon.glyphicon-remove                      
+          = submit_tag "Update Instant Queue", class: "btn btn-default"

@@ -15,7 +15,11 @@ Myflix::Application.routes.draw do
   get 'ui(/:action)', controller: 'ui'
   get '/home', to: 'videos#index'
   
-  resources 'my_queues', only: [:index, :create, :destroy]
+  resources 'my_queues', only: [:index, :create, :destroy] do
+    collection do
+      post 'update_all', to: 'my_queues#update_all'
+    end
+  end
 
   resources 'videos', only: [:index, :show, :new, :create] do
     collection do
