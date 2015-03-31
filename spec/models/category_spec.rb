@@ -91,14 +91,14 @@ describe Category do
     c = Category.create(title:"Funny")
     c2 = Category.create(title:"Cool")
     v1 = Video.create(title:"1-I am funny", description:"1 funny", category: c )
-    v2 = Video.create(title:"2-I am funny", description:"2 funny", category: c)
+    v2 = Video.create(title:"2-I am funny", description:"2 funny", category: c )
     v3 = Video.create(title:"3-I am funny", description:"3 funny", category: c )
     v4 = Video.create(title:"4-I am funny", description:"4 funny", category: c )
     v5 = Video.create(title:"5-I am funny", description:"5 funny", category: c )
     v6 = Video.create(title:"6-I am funny", description:"6 funny", category: c )
     v7 = Video.create(title:"7-I am funny", description:"7 funny", category: c )
     v8 = Video.create(title:"8-I am funny", description:"8 funny", category: c2 )
-    v9 = Video.create(title:"9-I am funny", description:"9 funny", category: c2 )
+    v9 = Video.create(title:"9-I am funny", description:"9 funny", category: c2 )    
     expect(Category.first.recent_videos).to eq([v7,v6,v5,v4,v3,v2])
   end
 

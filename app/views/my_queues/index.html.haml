@@ -34,19 +34,21 @@
                 %tr
                   = hidden_field_tag "my_queues[][id]", my_queue.id
                   %td                  
-                    = text_field_tag "my_queues[][list_order]", my_queue.list_order ||= 0, class: 'form-control'
+                    =# text_field_tag "my_queues[][list_order]", my_queue.list_order ||= 0, id: "video_#{my_queue.video.id}", class: 'form-control'
+                    -# add custom 'data attributes'
+                    = text_field_tag "my_queues[][list_order]", my_queue.list_order ||= 0, data:{ video_id: my_queue.video.id }, class: 'form-control'
                   %td
                     = link_to my_queue.video_title, video_path(my_queue.video)
                   %td
                     = button_to "Play", nil, class: "btn btn-default"
                   %td                
                     / method#1 
-                    = select_tag "my_queues_m1[][rating]", options_for_video_review(my_queue.rating), {class: 'form-control', include_blank: true}
+                    = select_tag "my_queues[][rating]", options_for_video_review(my_queue.rating), {class: 'form-control', include_blank: true}
                     / method#2
-                    - if my_queue.rating                   
-                      %select.form-control(name="my_queues[][rating]")
-                        - 5.times do |i|                        
-                          = ( "<option " + ( my_queue.rating == (i+1) ? "selected='true'" : "" ) +" > #{i+1} </option>" ).html_safe                        
+                    -# if my_queue.rating                   
+                    %select.form-control(name="my_queues_m2[][rating]")
+                      - 5.times do |i|                        
+                        = ( "<option " + ( my_queue.rating == (i+1) ? "selected='true'" : "" ) +" > #{i+1} </option>" ).html_safe                        
                   %td
                     = link_to my_queue.category_name,""
                   %td

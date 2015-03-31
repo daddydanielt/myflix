@@ -1,4 +1,10 @@
 Myflix::Application.configure do
+  #Note: In Rails 4.0/4.1 the default test environment
+  # (config/environments/test.rb) is not threadsafe. 
+  # If you experience random errors about missing constants, 
+  # add config.allow_concurrency = false to config/environments/test.rb.
+  config.allow_concurrency = false
+
   config.cache_classes = true
 
   config.serve_static_assets = true

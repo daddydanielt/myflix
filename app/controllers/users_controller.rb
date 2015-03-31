@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+  before_action :require_sign_in, only:[:show]
 
-  def front
+  def show    
+    #binding.pry
+    @user = User.find(params[:id])
   end
 
   def new
@@ -19,8 +22,11 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    #strong parameters
-    params.require(:video_id).permit! + params.require(:user).permit(:email, :password, :full_name)
+    #strong parametersparams    
+    
+    #params.require(:video_id).permit! + params.require(:user).permit(:email, :password, :full_name)
+    params.require(:user).permit(:email, :password, :full_name)
+    
     #params[:user].slice(:email,:password)
   end
 

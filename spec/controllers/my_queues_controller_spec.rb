@@ -3,6 +3,7 @@ require 'spec_helper'
 describe MyQueuesController  do
 
   describe "POST#update_all" do
+        # shared_examples
     it_behaves_like "requires sign in" do
       let(:video_1) { Fabricate(:video) }
       let(:video_2) { Fabricate(:video) }
@@ -231,8 +232,8 @@ describe MyQueuesController  do
       #end 
       #--->
       it_behaves_like "requires sign in" do
-        let(:video) { video = Fabricate(:video) }
-        let(:action) { post :create, video: video.id }
+        ##let(:video) { video = Fabricate(:video) }
+        let(:action) { post :create, video: 1 }
       end
       #---> 
     end # End context "unauthenticated user"    
@@ -287,9 +288,10 @@ describe MyQueuesController  do
       #  expect(response).to redirect_to(signin_path)   
       #end
 
+          # shared_examples
       it_behaves_like "requires sign in" do 
-        let(:video) {  Fabricate(:video) }
-        let(:action) { delete :destroy, id: video.id}
+        #let(:video) {  Fabricate(:video) }
+        let(:action) { delete :destroy, id: 1}
       end
     end  # End context "unauthenticated user" 
   end # End describe "DELETE#destroy"
