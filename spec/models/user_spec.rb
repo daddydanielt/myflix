@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do  
+describe User do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_presence_of(:full_name) }
@@ -13,11 +13,16 @@ describe User do
   it { should have_many(:following_relationships) }
   it { should have_many(:following_me_relationships) }
 
+  it "generates a random token when the user is created" do
+    mary = Fabricate(:user)
+    expect(mary.token).to be_present
+  end
+
   describe "is_my_queue_video?" do
     it "returns true if the user has alread queued this video." do
       user = Fabricate(:user)
       video_1 = Fabricate(:video)
-      my_queue = Fabricate(:my_queue, user: user, video: video_1, list_order: 1)            
+      my_queue = Fabricate(:my_queue, user: user, video: video_1, list_order: 1)
       #user.is_my_queue_video?(video_1).should be_true
       user.is_my_queue_video?(video_1).should be_truthy
     end
@@ -26,7 +31,7 @@ describe User do
       user = Fabricate(:user)
       video_1 = Fabricate(:video)
       video_2 = Fabricate(:video)
-      my_queue = Fabricate(:my_queue, user: user, video: video_1, list_order: 1)      
+      my_queue = Fabricate(:my_queue, user: user, video: video_1, list_order: 1)
       #user.is_my_queue_video?(video_2).should be_false
       user.is_my_queue_video?(video_2).should be_falsey
     end

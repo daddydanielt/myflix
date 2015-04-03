@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-feature "user following" do 
-  scenario "user follows and unfollow someone" do  
+feature "user following" do
+  scenario "user follows and unfollow someone" do
     mary = Fabricate(:user)
     following_user = Fabricate(:user)
-    category = Fabricate(:category)    
+    category = Fabricate(:category)
     video = Fabricate(:video, category: category)
     review = Fabricate(:review, user: following_user, video: video)
     

@@ -4,6 +4,7 @@ class RelationshipsController < ApplicationController
 
   def create
     following_user = User.find(params[:following_user_id])
+    #following_user = User.find(params[:following_user_id].split("-").last)
     current_user.following_relationships << Relationship.new(following: following_user, follower: current_user)
     redirect_to people_path
   end

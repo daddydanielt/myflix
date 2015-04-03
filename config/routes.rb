@@ -1,22 +1,27 @@
 Myflix::Application.routes.draw do
   
-  #root to: 'videos#index'
+  get 'ui(/:action)', controller: 'ui'
+
   root to: 'pages#front'
 
-  #get '/front', to: 'users#front'
   get 'home', to: 'videos#index'
   
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
-  #get '/user_profile/:id', to: 'users#show'
-  resources 'users', only: [:show]
   
+  resources :reset_passwords, only: [:show,:create]
+  get '/invalid_token', to: "reset_passwords#invalid_token"
+
+  resources :users, only: [:show]
   get '/signin', to: 'sessions#new'
   post '/signin', to: 'sessions#create'
   get '/signout', to: 'sessions#destroy'
-  get 'ui(/:action)', controller: 'ui'
-  get '/home', to: 'videos#index'
   
+  get '/home', to: 'videos#index'
+
+  get '/forget_password', to: 'forget_passwords#new'
+  get '/confirm_password_reset', to: 'forget_passwords#confirm_password_reset'
+  resources 'forget_passwords', only: [:create]
   #--->
   #testing
   #get 'home', controller: 'home'
@@ -38,7 +43,7 @@ Myflix::Application.routes.draw do
 
     resources 'reviews', only: [:create]
 
-    member do 
+    member do
       post 'comment', to: 'comments#create'
     end
   end

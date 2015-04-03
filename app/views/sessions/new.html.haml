@@ -15,5 +15,6 @@
             .row
               .col-sm-4
                 =f.password_field(:password, class: 'form-control')
+                =link_to "Forget password?", forget_password_path
         %fieldset.form-group.action
           =f.submit "Sign IN", class: "btn btn-default"

@@ -9,6 +9,7 @@ class Video < ActiveRecord::Base
   
   has_many :my_queues
 
+  before_create :generate_token
 
   def self.search_by_title(search_pattern)
     
@@ -20,5 +21,16 @@ class Video < ActiveRecord::Base
     return [] if search_pattern.blank?
     where("lower(title) LIKE ?", "%#{search_pattern.downcase}%").order("created_at DESC")
     
+  end
+  
+  def to_param
+    #using the video's token column 
+    #returns a String, which Action Pack uses for constructing an URL to this object.
+    token
+  end
+
+  private
+  def generate_token
+    @token = SecureRandom.urlsafe_base64
   end
 end 

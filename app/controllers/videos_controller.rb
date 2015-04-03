@@ -6,7 +6,10 @@ class VideosController < ApplicationController
   end
 
   def show    
-    @video = Video.find_by(id: params[:id])    
+    #@video = Video.find_by(id: params[:id])    
+    # using Video's token column as url
+    @video = Video.find_by_token(params[:id])    
+
     @reviews = @video.reviews        
     if !@video
       flash[:notice] = "There's no this video."
