@@ -1,7 +1,7 @@
 Myflix::Application.configure do
   #Note: In Rails 4.0/4.1 the default test environment
-  # (config/environments/test.rb) is not threadsafe. 
-  # If you experience random errors about missing constants, 
+  # (config/environments/test.rb) is not threadsafe.
+  # If you experience random errors about missing constants,
   # add config.allow_concurrency = false to config/environments/test.rb.
   config.allow_concurrency = false
 
@@ -20,5 +20,7 @@ Myflix::Application.configure do
   config.action_controller.allow_forgery_protection    = false
 
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'localhost:3000'}
+  
   config.active_support.deprecation = :stderr
 end

@@ -11,9 +11,32 @@ class UsersController < ApplicationController
     @user =  User.new
   end
 
+  def new_with_invitation_token
+    
+    @invitation = Invitation.find_by(token: params[:token])
+    if @invitation
+      @user = User.new(email: @invitation.recipient_email)
+      render :new
+    else
+      redirect_to invalid_token_path
+    end
+  end
+
   def create
     @user = User.new(user_params)
     if @user.save
+      #--->
+      #invitation_token = params[:invitation_token]
+      #if invitation_token
+      #  invitation = Invitation.find_by(token: invitation_token)
+      #  @user.follow(invitation.inviter)
+      #  invitation.inviter.follow(@user)
+      #  invitation.update(token: nil)
+      #end
+      #--->
+      handle_invitaion
+      #--->
+      
       AppMailer.send_welcome_email(@user).deliver
       #redirect_to signin_path
       redirect_to signin_path, flash: {notice: "Successfully register.", test: "okokkokokk"}
@@ -21,6 +44,7 @@ class UsersController < ApplicationController
       render :new
     end
   end
+
 
   private
   def user_params
@@ -30,4 +54,13 @@ class UsersController < ApplicationController
     #params[:user].slice(:email,:password)
   end
 
+  def handle_invitaion
+    invitation_token = params[:invitation_token]
+    if invitation_token
+      invitation = Invitation.find_by(token: invitation_token)
+      @user.follow(invitation.inviter)
+      invitation.inviter.follow(@user)
+      invitation.update(token: nil)
+    end
+  end
 end

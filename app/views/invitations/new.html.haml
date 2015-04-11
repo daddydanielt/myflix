@@ -1,0 +1,26 @@
+%section.invite.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      = form_for @invitation, url: invitations_path , class: "invite" do |f|
+        %header
+          %h1 Invite a friend to join MyFlix!
+        %fieldset
+          %div{ class: @invitation.has_error?(:recipient_name) ? "form-group has-warning" : "form-group" }
+            = f.label :recipient_name, "Friend's Name"
+            .row
+              .col-sm-4
+                = f.text_field :recipient_name, {class: "form-control"}
+              = @invitation.error_message(:recipient_name)
+          %div{ class: @invitation.has_error?(:recipient_email) ? " form-group has-warning" : "form-group" }
+            = f.label :recipient_email,"Friend's Email Address"
+            .row
+              .col-sm-4
+                = f.text_field :recipient_email, {class: "form-control"}
+              = @invitation.error_message(:recipient_email)
+          .form-group
+            = f.label :invitation_message, "Invitation Message"
+            .row
+              .col-sm-6
+                = f.text_area :invitation_message, {class: "form-control", rows:6, placeholder:"Please join this really cool site!"}
+        %fieldset.form-group.action
+          %input(type="submit" value="Send Invitation" class="btn btn-default")

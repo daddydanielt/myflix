@@ -1,4 +1,11 @@
+ require_relative "../../lib/tokenable"
+ 
  class User < ActiveRecord::Base
+  #--->
+  include Tokenable
+  #--->
+  #before_create :generate_token
+  #--->
 
   has_secure_password validations: false #supress the default validations, use custom validation
 
@@ -14,7 +21,7 @@
   
   #validates_presence_of
   #validates_uniqueness_of
-  before_create :generate_token
+
 
   def the_users_following_me
     following_me_relationships.map(&:follower)
@@ -33,13 +40,28 @@
     end
   end
 
+  def follow(another_user)
+    if another_user != self and !(follow? another_user)
+      #--->
+      following_relationships.create(following: another_user)
+      #--->
+      #Relationship.create(following: another_user, follower: self)
+      #reload
+      #--->
+    end
+  end
+
+  def follow?(another_user)
+    the_users_i_following.include? another_user
+  end
+
   def is_my_queue_video?( video )
     my_queues.map(&:video).include? video
   end
 
-  def generate_token
-    self.token = SecureRandom.urlsafe_base64
-  end
+  #def generate_token
+  #  self.token = SecureRandom.urlsafe_base64
+  #end
   #def to_param
   #  "#{full_name}-#{id}"
   #end

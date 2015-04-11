@@ -6,11 +6,19 @@ Myflix::Application.routes.draw do
 
   get 'home', to: 'videos#index'
   
+  #get '/invite_friends', to: 'invite_friends#new'
+  #get '/invite_friends', to: 'invite_friends#new'
+  #resources 'invite_friends', only: [:new, :create]
+  resources 'invitations', only: [:new, :create]
+
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
+  get '/register/:token', to: 'users#new_with_invitation_token', as: "register_with_invitation_token"
   
   resources :reset_passwords, only: [:show,:create]
+  #get '/invalid_token', to: "reset_passwords#invalid_token"
   get '/invalid_token', to: "reset_passwords#invalid_token"
+
 
   resources :users, only: [:show]
   get '/signin', to: 'sessions#new'

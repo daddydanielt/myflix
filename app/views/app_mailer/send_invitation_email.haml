@@ -1,0 +1,9 @@
+!!! 5
+%html(lang="en-US")
+  %body
+    %p Hi, #{@invitation.recipient_name}.
+    %p You are invited by #{@invitation.inviter.full_name}.
+    %p #{@invitation.invitation_message}
+    %p
+    = link_to "Accept this invitation to join MyFlix ", register_with_invitation_token_url(@invitation.token)
+    , the world's best online video watching service.

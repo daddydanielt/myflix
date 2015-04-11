@@ -9,8 +9,8 @@ feature "User interacts with the queue" do
   given(:video_futurama) { Fabricate(:video, title: "Futurama", category: video_category_tv_commedies) }
   
   context "Refactory" do
-    scenario "user adds videos in the queue and reorder the list_order" do    
-      #sign_in    
+    scenario "user adds videos in the queue and reorder the list_order" do
+      #sign_in
       user_sign_in(user_daniel)
       
       #add videos into My Queues
@@ -38,7 +38,7 @@ feature "User interacts with the queue" do
   end # End context "Refactory"
 
   context "Original" do
-    scenario "user adds videos in the queue and reorder the list_order - original" do    
+    scenario "user adds videos in the queue and reorder the list_order - original" do
       tv_commedies = Fabricate(:category, title: "tv_commedies")
       
       monk = Fabricate(:video, title: "Monk", category: tv_commedies)
@@ -46,48 +46,49 @@ feature "User interacts with the queue" do
       futurama = Fabricate(:video, title: "Futurama", category: tv_commedies)
 
       user = Fabricate(:user)
-      user_sign_in(user)    
-      find("a[href='/videos/#{monk.id}']").click    
+      user_sign_in(user)
+      #find("a[href='/videos/#{monk.to_param}']").click
+      find("a[href='/videos/#{monk.token}']").click
       page.should have_content(monk.title)
 
       click_link "+ My Queue"
       page.should have_content("My Queue")
       page.should have_content(monk.title)
 
-      visit video_path(monk.id)
+      visit video_path(monk)
       page.should_not have_content "+ My Queue"
 
       #--->
       visit home_path
-      find("a[href='/videos/#{south_park.id}']").click    
+      find("a[href='/videos/#{south_park.to_param}']").click
       click_link "+ My Queue"
       expect_video_to_be_added_into_my_queues south_park
       #--->
       
       #--->
       visit home_path
-      find("a[href='/videos/#{futurama.id}']").click    
+      find("a[href='/videos/#{futurama.to_param}']").click
       click_link "+ My Queue"
       expect_video_to_be_added_into_my_queues futurama
       #--->
 
       #=======#
-      visit my_queues_path    
-      #save_and_open_page  
+      visit my_queues_path
+      #save_and_open_page
       #--->
       #[method-1]
-      #fill_in("video_#{monk.id}", with: '3')
-      #fill_in("video_#{south_park.id}", with: '2')
-      #fill_in("video_#{futurama.id}", with: '1')
+      #fill_in("video_#{monk.to_param}", with: '3')
+      #fill_in("video_#{south_park.to_param}", with: '2')
+      #fill_in("video_#{futurama.to_param}", with: '1')
       #--->
       #[method-2](Capybara scoping technique)
-      within(:xpath, "//tr[contains(.,'#{monk.title}')]") do      
+      within(:xpath, "//tr[contains(.,'#{monk.title}')]") do
         fill_in "my_queues[][list_order]", with: 3
       end
-      within(:xpath, "//tr[contains(.,'#{south_park.title}')]") do      
+      within(:xpath, "//tr[contains(.,'#{south_park.title}')]") do
         fill_in "my_queues[][list_order]", with: 2
       end
-      within(:xpath, "//tr[contains(.,'#{futurama.title}')]") do      
+      within(:xpath, "//tr[contains(.,'#{futurama.title}')]") do
         fill_in "my_queues[][list_order]", with: 1
       end
       #--->
@@ -95,9 +96,9 @@ feature "User interacts with the queue" do
       # set_video_list_order( monk, 3)
       #--->
       #[method-4]
-      #find("input[data-video-id='#{monk.id}']").set(3)
-      #find("input[data-video-id='#{south_park.id}']").set(2)
-      #find("input[data-video-id='#{futurama.id}']").set(1)
+      #find("input[data-video-id='#{monk.to_param}']").set(3)
+      #find("input[data-video-id='#{south_park.to_param}']").set(2)
+      #find("input[data-video-id='#{futurama.to_param}']").set(1)
       #--->
       click_button "Update Instant Queue"
       #--->
@@ -105,12 +106,13 @@ feature "User interacts with the queue" do
       
 
       #--->
-      #expect( find("#video_#{monk.id}").value.to_i ).to eq(3)
-      #expect( find("#video_#{south_park.id}").value.to_i ).to eq(2)
-      #expect( find("#video_#{futurama.id}").value.to_i ).to eq(1)
+      #expect( find("#video_#{monk.to_param}").value.to_i ).to eq(3)
+      #expect( find("#video_#{south_park.to_param}").value.to_i ).to eq(2)
+      #expect( find("#video_#{futurama.to_param}").value.to_i ).to eq(1)
       #--->
       #--->
       #[method-1]
+
       expect( find(:xpath, "//tr[contains(.,'#{monk.title}')]//input[@type='text']").value.to_i ).to eq(3)
       #--->
       #[method-2]
@@ -129,28 +131,29 @@ feature "User interacts with the queue" do
   #[Helpers]
   def add_video_to_my_queues(video)
     visit home_path
-    find("a[href='/videos/#{video.id}']").click    
+    #find("a[href='/videos/#{video.to_param}']").click
+    find("a[href='/videos/#{video.token}']").click
     click_link "+ My Queue"
   end
 
   def set_video_list_order(video, list_order)
     visit my_queues_path
-    within(:xpath, "//tr[contains(.,'#{video.title}')]") do      
+    within(:xpath, "//tr[contains(.,'#{video.title}')]") do
       fill_in "my_queues[][list_order]", with: list_order
     end
     click_button "Update Instant Queue"
   end
 
   def expect_video_to_be_added_into_my_queues(video)
-    visit my_queues_path    
+    visit my_queues_path
     page.should have_content(video.title)
-    visit video_path(video.id)
+    visit video_path(video.to_param)
     page.should_not have_content "+ My Queue"
   end
 
   def expect_video_list_order(video, list_order)
     visit my_queues_path
-    expect( find(:xpath, "//tr[contains(.,'#{video.title}')]//input[@type='text']").value.to_i ).to eq(list_order) 
+    expect( find(:xpath, "//tr[contains(.,'#{video.title}')]//input[@type='text']").value.to_i ).to eq(list_order)
   end
   #==================================================>>
 end

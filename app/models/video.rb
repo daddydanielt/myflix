@@ -1,19 +1,20 @@
 class Video < ActiveRecord::Base
+  #--->
+  #before_create :generate_token
+  #--->
+  include Tokenable_2
+  #--->
   validates :title, presence: true
   validates :description, presence: true
-  
   belongs_to :category
 
   #has_many :reviews
   has_many :reviews, -> { order "created_at DESC" }
-  
   has_many :my_queues
-
-  before_create :generate_token
 
   def self.search_by_title(search_pattern)
     
-    #quote_search_pattern = search_pattern.gsub(/\\/, '\&\&').gsub(/'/, "''")     
+    #quote_search_pattern = search_pattern.gsub(/\\/, '\&\&').gsub(/'/, "''")
     #Video.where("title LIKE %#{search_pattern}%")
     #where("title LIKE '%#{search_pattern}%'")
     
@@ -24,13 +25,13 @@ class Video < ActiveRecord::Base
   end
   
   def to_param
-    #using the video's token column 
+    #using the video's token column
     #returns a String, which Action Pack uses for constructing an URL to this object.
     token
   end
 
-  private
-  def generate_token
-    @token = SecureRandom.urlsafe_base64
-  end
-end 
+  #private
+  #def generate_token
+  #  self.token = SecureRandom.urlsafe_base64
+  #end
+end
