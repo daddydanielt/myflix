@@ -1,6 +1,8 @@
 class AppMailer < ActionMailer::Base
   def send_welcome_email(user)
     @user = user #@user instance variable is used in email's view template
+    puts "email-to: #{@user.email} <#{@user.full_name}>"
+    puts "from : MyFlix <info@myflix.com>"
     mail to: "#{@user.email} <#{@user.full_name}>", from: 'MyFlix <info@myflix.com>', subjet: "Welcome to MyFlix"
   end
   def send_forget_password_email(email)
