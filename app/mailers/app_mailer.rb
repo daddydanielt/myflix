@@ -3,7 +3,10 @@ class AppMailer < ActionMailer::Base
     @user = user #@user instance variable is used in email's view template
     #puts "email-to: #{@user.email} <#{@user.full_name}>"
     #puts "from : MyFlix <info@myflix.com>"
-    mail to: '#{@user.email}', from: 'info@myflix.com', subjet: "Welcome to MyFlix"
+
+    #mail to: '#{@user.email}', from: 'info@myflix.com', subjet: "Welcome to MyFlix"
+    mail to: email_with_name(@user.name, @user.email),
+         from: email_with_name('MyFlix','info@myflix.com'), subjet: "Welcome to MyFlix"
   end
   def send_forget_password_email(email)
     @user = User.where(email: email).last
@@ -12,5 +15,10 @@ class AppMailer < ActionMailer::Base
   def send_invitation_email(invitation)
     @invitation = invitation
     mail to: "#{@invitation.recipient_email} <#{@invitation.recipient_name}>", from: "#{@invitation.inviter.full_name} <#{@invitation.inviter.email}>", subject: "Invitaion to register an MyFlix member today."
+  end
+
+  private
+  def email_with_name(name,email)
+    %("#{name}" <#{email}>)
   end
 end
