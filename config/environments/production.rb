@@ -28,6 +28,6 @@ Myflix::Application.configure do
   :password             => ENV["GMAIL_PASSWORD"],
   :password             => ENV["GMAIL_USERNAME"],
   :authentication       => "plain"
-  #:enable_starttls_auto => true
+  :enable_starttls_auto => true
   }
 end
