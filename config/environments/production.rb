@@ -26,7 +26,7 @@ Myflix::Application.configure do
   :port                 => 587,
   :domain               => "gmail.com",
   :password             => ENV["GMAIL_PASSWORD"],
-  :password             => ENV["GMAIL_USERNAME"],
+  :user_name             => ENV["GMAIL_USERNAME"],
   :authentication       => "plain"
   :enable_starttls_auto => true
   }
