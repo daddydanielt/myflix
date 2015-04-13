@@ -3,8 +3,7 @@ class AppMailer < ActionMailer::Base
     @user = user #@user instance variable is used in email's view template
     #mail to: '#{@user.email}', from: 'info@myflix.com', subjet: "Welcome to MyFlix"
     mail to: email_with_name(@user.full_name, @user.email),
-         from: email_with_name('MyFlix','info@myflix.com'),
-         subjet: "Welcome to MyFlix"
+         from: email_with_name('MyFlix','info@myflix.com'), subjet: "Welcome to MyFlix."
   end
   def send_forget_password_email(email)
     @user = User.where(email: email).last
