@@ -5,7 +5,7 @@ class AppMailer < ActionMailer::Base
     #puts "from : MyFlix <info@myflix.com>"
 
     #mail to: '#{@user.email}', from: 'info@myflix.com', subjet: "Welcome to MyFlix"
-    mail to: email_with_name(@user.name, @user.email),
+    mail to: email_with_name(@user.full_name, @user.email),
          from: email_with_name('MyFlix','info@myflix.com'), subjet: "Welcome to MyFlix"
   end
   def send_forget_password_email(email)
