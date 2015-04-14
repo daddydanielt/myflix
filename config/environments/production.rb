@@ -20,6 +20,7 @@ Myflix::Application.configure do
 
   #ActionMailer
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'myflix-test.herokuapp.com'}
   # for Gmail
   #config.action_mailer.smtp_settings = {
   #:address              => "smtp.gmail.com",
