@@ -11,6 +11,14 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 gem 'sidekiq'
+gem 'rack-timeout'
+
+group :production do
+  gem 'rails_12factor'
+  #-->
+  gem 'unicorn'
+  #-->
+end
 
 group :secure do
   # the OpenBSD bcrypt() password hashing algorithm
@@ -42,10 +50,5 @@ group :test do
   gem 'launchy'
   gem 'capybara-email'
 end
-
-group :production do
-  gem 'rails_12factor'
-end
-
 
 
