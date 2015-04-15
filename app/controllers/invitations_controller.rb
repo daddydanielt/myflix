@@ -8,7 +8,12 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(invitation_params)
     if @invitation.save
-      AppMailer.send_invitation_email(@invitation).deliver
+      #-->
+      #AppMailer.send_invitation_email(@invitation).deliver
+      #-->
+      # using Sidekiq background job
+      AppMailer.delay.send_invitation_email(@invitation)
+      #-->
       flash[:success] = "Successfully sends your invitaion email to your friend."
       redirect_to new_invitation_path
     else

@@ -10,6 +10,7 @@ gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
+gem 'sidekiq'
 
 group :secure do
   # the OpenBSD bcrypt() password hashing algorithm

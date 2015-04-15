@@ -37,6 +37,7 @@ class UsersController < ApplicationController
       handle_invitaion
       #--->
       
+      #AppMailer.send_welcome_email(@user).deliver
       AppMailer.send_welcome_email(@user).deliver
       #redirect_to signin_path
       redirect_to signin_path, flash: {notice: "Successfully register.", test: "okokkokokk"}
