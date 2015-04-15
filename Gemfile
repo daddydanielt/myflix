@@ -12,13 +12,13 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'sidekiq'
 gem 'rack-timeout'
+gem "sentry-raven" #, :github => "getsentry/raven-ruby"
 
 group :production do
   gem 'rails_12factor'
   #-->
   gem 'unicorn'
   #-->
-  gem "sentry-raven" #, :github => "getsentry/raven-ruby"
 end
 
 group :secure do
