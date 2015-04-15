@@ -18,6 +18,7 @@ group :production do
   #-->
   gem 'unicorn'
   #-->
+  gem "sentry-raven" #, :github => "getsentry/raven-ruby"
 end
 
 group :secure do
