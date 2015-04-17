@@ -40,4 +40,8 @@ Myflix::Application.configure do
   :domain         => 'myflix-test.herokuapp.com',
   :authentication => :plain,
   }
+
+  # for Sentry-Raven
+  # In Rails, all uncaught exceptions will be automatically reported.
+  config.action_dispatch.show_exceptions = false # this is the default setting in production
 end
