@@ -46,6 +46,13 @@
                 %col.btn.btn-file
                   /= f.file_field :small_cover_url, class: "form-control"
                   = f.file_field :small_cover, class: "filestyle"
+            .form-group
+              = f.label :video_url, "Video Url", class: "control-label col-sm-3"
+              .col-sm-3
+                = f.text_field :video_url, class: "form-control"
+                .help-block.with-errors
+                  - if @video.errors.include? :video_url
+                    = @video.errors.get(:video_url).join(', ')
           %fieldset.actions.form-group
             .col-sm-6.col-md-offset-3
               %input(type="submit" value="Add Video" class="btn btn-default")

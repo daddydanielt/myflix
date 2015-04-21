@@ -12,6 +12,7 @@ class Admin::VideosController < AdminedController
 
   def create
     @video = Video.new(video_params)
+    
     if @video.save
       flash[:success] = "Successfully created the video."
       redirect_to new_admin_video_path
@@ -23,6 +24,6 @@ class Admin::VideosController < AdminedController
 
   private
   def video_params
-    params.require(:video).permit %i(title category_id description big_cover small_cover)
+    params.require(:video).permit %i(title category_id description big_cover small_cover video_url)
   end
 end
