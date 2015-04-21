@@ -12,7 +12,6 @@ class Admin::VideosController < AdminedController
 
   def create
     @video = Video.new(video_params)
-
     if @video.save
       flash[:success] = "Successfully created the video."
       redirect_to new_admin_video_path
@@ -20,8 +19,6 @@ class Admin::VideosController < AdminedController
       flash[:error] = "Woops! Fail to create the video."
       render :new
     end
-    
-    
   end
 
   private

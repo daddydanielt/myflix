@@ -15,7 +15,7 @@ describe ReviewsController do
     context "with valid inputs" do
       before do
         review_attributes = Fabricate.attributes_for(:review)
-        post :create, review: review_attributes, video_id: video.id
+        post :create, review: review_attributes, video_id: video.to_param
       end
 
       it "create a review" do
@@ -42,27 +42,27 @@ describe ReviewsController do
     context "with unvalid input" do
 
       it "doesn't creaste a review" do
-        post :create, review: { rating:4 }, video_id: video.id
+        post :create, review: { rating:4 }, video_id: video.to_param
         expect(Review.count).to eq(0)
-        post :create, review: { content: 'This is a test with unvalid input' }, video_id: video.id
+        post :create, review: { content: 'This is a test with unvalid input' }, video_id: video.to_param
         expect(Review.count).to eq(0)
-        post :create, review: { rating:'', content: '' }, video_id: video.id
+        post :create, review: { rating:'', content: '' }, video_id: video.to_param
         expect(Review.count).to eq(0)
       end
       it "render video/show template" do
-        post :create, review: { rating:'', content: ''}, video_id: video.id
+        post :create, review: { rating:'', content: ''}, video_id: video.to_param
         #puts "test"
         expect(response).to render_template('videos/show')
       end
 
       it "set @video" do
-        post :create, review: { rating:'', content: ''}, video_id: video.id
+        post :create, review: { rating:'', content: ''}, video_id: video.to_param
         expect(assigns(:video)).to eq(video)
       end
 
       it "set @reviews" do
         review = Fabricate(:review, video: video)
-        post :create, review: { rating:'', content: ''}, video_id: video.id
+        post :create, review: { rating:'', content: ''}, video_id: video.to_param
         expect(assigns(:reviews)).to match_array( video.reviews )
       end
     end
@@ -72,7 +72,7 @@ describe ReviewsController do
   #contexnt "with unauthenticated user"
   context "user doesn't sign in" do
       it "redirect_to singin_path" do
-        post :create, review: { rating:'5', content: 'This ia a review content'}, video_id: video.id
+        post :create, review: { rating:'5', content: 'This ia a review content'}, video_id: video.to_param
         expect(response).to redirect_to(signin_path)
       end
   end

@@ -38,13 +38,14 @@ class MyQueuesController < ApplicationController
   private
   
   def update_my_queues
-    
     ActiveRecord::Base.transaction do
       my_queues = params[:my_queues]
-      my_queues.each do |my_queue_item|
-        my_queue = MyQueue.find(my_queue_item[:id])
-        if my_queue && my_queue.user == current_user
-          my_queue.update!(list_order: my_queue_item[:list_order], rating:my_queue_item[:rating])
+      if my_queues.presence
+        my_queues.each do |my_queue_item|
+          my_queue = MyQueue.find(my_queue_item[:id])
+          if my_queue && my_queue.user == current_user
+            my_queue.update!(list_order: my_queue_item[:list_order], rating:my_queue_item[:rating])
+          end
         end
       end
     end

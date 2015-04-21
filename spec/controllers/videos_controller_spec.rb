@@ -144,19 +144,21 @@ describe VideosController do
 
   describe "POST #create" do
     it "create the new video record when the input is valid" do
+      category =  Fabricate(:category)
+      
       u =  User.create(email: "qqq@gmail.com", password: "qqq", full_name: "QQQ")
-      post :create, {video: {title: "test-ok", description: "test-ok"}}, { 'user_id' => u.id } #session[:user_id]
+      post :create, {video: {category_id: category.id, title: "test-ok", description: "test-ok"}}, { 'user_id' => u.id } #session[:user_id]
       v = Video.first
       v.title.should == "test-ok"
       v.description.should == "test-ok"
     end
     it "redirects to the newly created video path" do
+      category = Fabricate(:category)
       u =  User.create(email: "qqq@gmail.com", password: "qqq", full_name: "QQQ")
-      post :create, {video: {title: "test-ok", description: "test-ok"}}, { 'user_id' => u.id } #session[:user_id]
+      post :create, {video: {category_id: category.id,title: "test-ok", description: "test-ok"}}, { 'user_id' => u.id } #session[:user_id]
       response.should redirect_to video_path(Video.first)
     end
     
-
     it "doesn't create the video when the inpute is invalid" do
       u =  User.create(email: "qqq@gmail.com", password: "qqq", full_name: "QQQ")
       post :create, {video: {description: "test-ok"}}, { 'user_id' => u.id } #session[:user_id]

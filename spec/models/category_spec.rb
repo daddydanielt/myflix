@@ -28,14 +28,15 @@ describe Category do
   end
 
   it "returns at most 6 recently videos, order by created_at desc, in all videos." do
-    v0 = Fabricate(:video, title:"1-I am funny", description:"0 funny")
-    v1 = Fabricate(:video, title:"1-I am funny", description:"1 funny")
-    v2 = Fabricate(:video, title:"2-I am funny", description:"2 funny")
-    v3 = Fabricate(:video, title:"3-I am funny", description:"3 funny")
-    v4 = Fabricate(:video, title:"4-I am funny", description:"4 funny")
-    v5 = Fabricate(:video, title:"5-I am funny", description:"5 funny")
-    v6 = Fabricate(:video, title:"6-I am funny", description:"6 funny")
-    v7 = Fabricate(:video, title:"7-I am funny", description:"7 funny")
+    category = Fabricate(:category)
+    v0 = Fabricate(:video, category_id: category.id , title:"1-I am funny", description:"0 funny")
+    v1 = Fabricate(:video, category_id: category.id , title:"1-I am funny", description:"1 funny")
+    v2 = Fabricate(:video, category_id: category.id , title:"2-I am funny", description:"2 funny")
+    v3 = Fabricate(:video, category_id: category.id , title:"3-I am funny", description:"3 funny")
+    v4 = Fabricate(:video, category_id: category.id , title:"4-I am funny", description:"4 funny")
+    v5 = Fabricate(:video, category_id: category.id , title:"5-I am funny", description:"5 funny")
+    v6 = Fabricate(:video, category_id: category.id , title:"6-I am funny", description:"6 funny")
+    v7 = Fabricate(:video, category_id: category.id , title:"7-I am funny", description:"7 funny")
     expect(Category.recent_videos).to eq([v7,v6,v5,v4,v3,v2])
     expect(Category.recent_videos.size).to eq(6)
     4.times { Video.first.destroy }

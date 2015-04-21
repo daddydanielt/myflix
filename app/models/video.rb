@@ -4,8 +4,11 @@ class Video < ActiveRecord::Base
   #--->
   include Tokenable_2
   #--->
-  validates :title, presence: true
-  validates_presence_of :category_id, :description
+  #validates :title, presence: true
+  #validates :description, presence: true
+  validates :category_id, presence: true, on: [:create]
+  validates_presence_of :title, :description
+  
   belongs_to :category
 
   #has_many :reviews

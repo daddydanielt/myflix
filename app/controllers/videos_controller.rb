@@ -25,10 +25,8 @@ class VideosController < ApplicationController
   end
 
   def create
-
     mass_assignment_attributes = video_params
     @video =  Video.new( mass_assignment_attributes )
-
     if @video.save
       flash[:notice] = "You've added one video."
       redirect_to video_path(@video)
@@ -37,10 +35,8 @@ class VideosController < ApplicationController
     end
   end
 
-  
-
   private
   def video_params
-    params.require(:video).permit(:title, :description)
+    params.require(:video).permit(:category_id, :title, :description )
   end
 end

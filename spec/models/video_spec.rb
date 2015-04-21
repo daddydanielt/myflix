@@ -1,11 +1,15 @@
 require 'spec_helper'
 
 
-describe Video,"#search_by_title" do
+
+describe Video do
   #--->
+  it { should belong_to(:category) }
   it { should have_many(:reviews).order('created_at DESC') }
+  it { should have_many(:my_queues) }
   it { should validate_presence_of :title}
   it { should validate_presence_of :description}
+  it { should validate_presence_of(:category_id).on(:create) }
   #--->
   
   #--->
@@ -19,40 +23,46 @@ describe Video,"#search_by_title" do
     let(:token) { Fabricate(:video).token }
   end
   #--->
-  
-  it "returns an empty array if there's no match" do
-    v1 = Video.create(title: "Futurama", description: "Space Travel")
-    v2 = Video.create(title: "back_to_furture", description: "Time travel")
-    expect(Video.search_by_title("Can't find any videos")).to eq([])
-  end
+  describe "#search_by_title" do
+    it "returns an empty array if there's no match" do
+      category = Fabricate(:category)
+      v1 = Video.create(category_id: category.id, title: "Futurama", description: "Space Travel")
+      v2 = Video.create(category_id: category.id, title: "back_to_furture", description: "Time travel")
+      expect(Video.search_by_title("Can't find any videos")).to eq([])
+    end
 
-  it "returns an array of one video for an exact match" do
-    v1 = Video.create(title: "Futurama", description: "Space Travel")
-    v2 = Video.create(title: "back_to_furture", description: "Time travel")
-    expect(Video.search_by_title("Futurama")).to eq([v1])
-  end
+    it "returns an array of one video for an exact match" do
+      category = Fabricate(:category)
+      v1 = Video.create(category_id: category.id ,title: "Futurama", description: "Space Travel")
+      v2 = Video.create(category_id: category.id ,title: "back_to_furture", description: "Time travel")
+      expect(Video.search_by_title("Futurama")).to eq([v1])
+    end
 
-  it "returns an array of one video for a partial match" do
-    v1 = Video.create(title: "Futurama", description: "Space Travel")
-    v2 = Video.create(title: "back_to_furture", description: "Time travel")
-    expect( Video.search_by_title("Futu") ).to eq([v1])
-  end
-  
-  it "returns an array of all matches ordered by :created_at" do
-    v1 = Video.create(title: "Futurama-1", description: "Space Travel")
-    v2 = Video.create(title: "back_to_furture", description: "Time travel")
-    v3 = Video.create(title: "Futurama-2", description: "Space Travel")
-    expect( Video.search_by_title("Futu") ).to eq([v3,v1])
-  end
+    it "returns an array of one video for a partial match" do
+      category = Fabricate(:category)
+      v1 = Video.create(category_id: category.id, title: "Futurama", description: "Space Travel")
+      v2 = Video.create(category_id: category.id, title: "back_to_furture", description: "Time travel")
+      expect( Video.search_by_title("Futu") ).to eq([v1])
+    end
+    
+    it "returns an array of all matches ordered by :created_at" do
+      category = Fabricate(:category)
+      v1 = Video.create(category_id: category.id, title: "Futurama-1", description: "Space Travel")
+      v2 = Video.create(category_id: category.id, title: "back_to_furture", description: "Time travel")
+      v3 = Video.create(category_id: category.id, title: "Futurama-2", description: "Space Travel")
+      expect( Video.search_by_title("Futu") ).to eq([v3,v1])
+    end
 
-  it "returns an empty array for a search with an empty string" do
-    v1 = Video.create(title: "Futurama-1", description: "Space Travel")
-    v2 = Video.create(title: "back_to_furture", description: "Time travel")
-    v3 = Video.create(title: "Futurama-2", description: "Space Travel")
+    it "returns an empty array for a search with an empty string" do
+      category = Fabricate(:category)
+      v1 = Video.create(category_id: category.id, title: "Futurama-1", description: "Space Travel")
+      v2 = Video.create(category_id: category.id, title: "back_to_furture", description: "Time travel")
+      v3 = Video.create(category_id: category.id, title: "Futurama-2", description: "Space Travel")
 
-    expect( Video.search_by_title("") ).to eq([])
-    expect( Video.search_by_title("   ") ).to eq([])
-    expect( Video.search_by_title(nil) ).to eq([])
+      expect( Video.search_by_title("") ).to eq([])
+      expect( Video.search_by_title("   ") ).to eq([])
+      expect( Video.search_by_title(nil) ).to eq([])
+    end
   end
 
 
