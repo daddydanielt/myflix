@@ -5,12 +5,16 @@ class Video < ActiveRecord::Base
   include Tokenable_2
   #--->
   validates :title, presence: true
-  validates :description, presence: true
+  validates_presence_of :category_id, :description
   belongs_to :category
 
   #has_many :reviews
   has_many :reviews, -> { order "created_at DESC" }
   has_many :my_queues
+
+  #uploader
+  mount_uploader :big_cover, BigCoverUploader
+  mount_uploader :small_cover, SmallCoverUploader
 
   def self.search_by_title(search_pattern)
     

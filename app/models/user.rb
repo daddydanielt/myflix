@@ -1,8 +1,9 @@
- require_relative "../../lib/tokenable"
+ #require_relative "../../lib/tokenable"
  
  class User < ActiveRecord::Base
   #--->
-  include Tokenable
+  #include Tokenable
+  include Tokenable_2
   #--->
   #before_create :generate_token
   #--->
@@ -59,6 +60,7 @@
     my_queues.map(&:video).include? video
   end
 
+  
   #def generate_token
   #  self.token = SecureRandom.urlsafe_base64
   #end

@@ -13,3 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+
+// ref:[http://markusslima.github.io/bootstrap-filestyle/]
+//= require ./bootstrap-plugins/bootstrap-filestyle

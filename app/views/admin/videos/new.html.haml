@@ -1,0 +1,51 @@
+%section.admin_add_video
+  .container
+    .row
+      .col-md-10.col-md-offset-1
+        = form_for [:admin, @video], html:{ class: "form-horizontal" } do |f|
+          %ul.nav.nav-tabs
+            %li
+              %a(href="/ui/admin_views_payments") Recent Payments
+            %li.active
+              = link_to "Add a New Video", new_admin_video_path
+          %br
+          %fieldset
+            .form-group
+              = f.label :title, class: "control-label col-sm-3"
+              .col-sm-3
+                = f.text_field :title, class: "form-control"
+                .help-block.with-errors
+                  - if @video.errors.include? :title
+                    = @video.errors.get(:title).join(', ')
+                /= f.text_field :title, class: "form-control", value: "#{@video.errors.include?(:title) ? @video.errors.get(:title).join(', ') : @video.title}"
+            .form-group
+              = f.label :category_id, class: "control-label col-sm-3"
+              .col-sm-6
+                = f.select :category_id, Category.all.map{|c| [c.title, c.id]}, {include_blank: true}, class: "form-control"
+                .help-block.with-errors
+                  - if @video.errors.include? :category_id
+                    = @video.errors.get(:category_id).join(', ')
+            .form-group
+              = f.label :description, class: "control-label col-sm-3"
+              .col-sm-6
+                = f.text_area :description, class: "form-control", rows: 8
+                .help-block.with-errors
+                  - if @video.errors.include? :description
+                    = @video.errors.get(:description).join(', ')
+            .form-group
+              /= f.label :big_cover_url, "Large Cover", class: "control-label col-sm-3"
+              = f.label :big_cover, "Large Cover", class: "control-label col-sm-3"
+              .col-sm-6
+                %col.btn.btn-file
+                  /= f.file_field :big_cover_url, class: "form-control"
+                  = f.file_field :big_cover, class: "filestyle"
+            .form-group
+              /= f.label :small_cover_url, "Small Cover", class: "control-label col-sm-3"
+              = f.label :small_cover, "Small Cover", class: "control-label col-sm-3"
+              .col-sm-6
+                %col.btn.btn-file
+                  /= f.file_field :small_cover_url, class: "form-control"
+                  = f.file_field :small_cover, class: "filestyle"
+          %fieldset.actions.form-group
+            .col-sm-6.col-md-offset-3
+              %input(type="submit" value="Add Video" class="btn btn-default")

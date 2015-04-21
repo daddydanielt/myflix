@@ -17,7 +17,17 @@ class ApplicationController < ActionController::Base
   end
 
   def require_sign_in
-    redirect_to signin_path unless logged_in?
+    unless logged_in?
+      redirect_to signin_path
+    end
   end
+
+  #def require_admin
+  #  #unless logged_in? && current_user.admin?
+  #  if !current_user.admin?
+  #    flash[:error] = "Permission denied!!"
+  #    redirect_to home_path
+  #  end
+  #end
 
 end

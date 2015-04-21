@@ -56,6 +56,9 @@ Myflix::Application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+  end
 
   get '/people', to: 'relationships#following'
 

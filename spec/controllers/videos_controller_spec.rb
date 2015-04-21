@@ -132,7 +132,7 @@ describe VideosController do
       u =  User.create(email: "qqq@gmail.com", password: "qqq", full_name: "QQQ")
       get :new, {}, { 'user_id' => u.id } #session[:user_id]
       assigns(:video).should be_an_instance_of(Video)
-      assigns(:video2).should be_new_record
+      assigns(:video).should be_new_record
     end
 
     it "render the new template" do

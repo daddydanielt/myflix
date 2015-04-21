@@ -12,7 +12,14 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'sidekiq'
 gem 'rack-timeout'
-gem "sentry-raven" #, :github => "getsentry/raven-ruby"
+gem 'sentry-raven' #, :github => "getsentry/raven-ruby"
+gem 'carrierwave'
+gem "mini_magick"
+
+#--->
+#gem 'fog-aws'
+gem 'carrierwave-aws'
+#--->
 
 group :production do
   gem 'rails_12factor'

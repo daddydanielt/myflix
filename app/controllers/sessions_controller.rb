@@ -3,20 +3,6 @@ class SessionsController < ApplicationController
   before_action :signin_params, only: [:create]
 
   def new
-
-    # Raven-Sentry
-    #--->
-    #Raven.capture do
-    ## capture any exceptions which happen during execution of this block
-    #1 / 0
-    #end
-    #begin
-    #  1 / 0
-    #rescue ZeroDivisionError => exception
-    #  Raven.capture_exception(exception)
-    #end
-    #--->
-    
     redirect_to home_path if current_user
     @user = User.new
   end

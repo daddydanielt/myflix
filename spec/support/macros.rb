@@ -14,6 +14,14 @@ end
 def set_current_user(user = nil)
  session[:user_id] = (user || Fabricate(:user)).id
 end
+#def set_current_user_with_admin(user = nil)
+#  user.update(admin: true) if user
+#  session[:user_id] = (user || Fabricate(:user, admin: true)).id
+#end
+def set_current_user_with_admin(admin = nil)
+  session[:user_id] = (admin || Fabricate(:admin)).id
+end
+
 def clear_current_user
    session[:user_id] = nil
 end
