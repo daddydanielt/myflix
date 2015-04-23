@@ -15,7 +15,8 @@ gem 'rack-timeout'
 gem 'sentry-raven' #, :github => "getsentry/raven-ruby"
 gem 'carrierwave'
 gem "mini_magick"
-
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem "figaro"
 #--->
 #gem 'fog-aws'
 gem 'carrierwave-aws'

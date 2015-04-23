@@ -1,7 +1,20 @@
+= content_for :head do
+  %script(src="https://js.stripe.com/v2/")
+  :javascript
+    Stripe.setPublishableKey("#{ENV['stripe_publishable_key']}");
+  = javascript_include_tag 'stripe/payment.js'
+
+/
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript">
+  Stripe.setPublishableKey("#{ENV['stripe_publishable_key']}");
+  </script>
+  =# javascript_include_tag 'stripe/payment.js'
+
 %section.register.container
   .row
     .col-sm-10.col-sm-offset-1
-      =my_form_for(@user, url: register_path, html: { class: "form-horizontal" }) do |f|
+      =my_form_for(@user, url: register_path, html: { class: "form-horizontal", id: "payment-form" }) do |f|
         %header
           %h1 Register
         %fieldset
@@ -20,6 +33,34 @@
           -if @invitation
             .form-group
               = hidden_field_tag 'invitation_token', @invitation.token
-        %fieldset.actions.control-group.col-sm-offset-2
-          .controls
-          =f.submit "Sign UP", class: "btn btn-default"
+        %fieldset
+          .form-group
+            %span.payment-errors
+          .form-group
+            %label.col-sm-2.control-label Card Number
+            .col-sm-6
+              %input.form-control(type="text" maxlength="20" data-stripe="number" placeholder="Card number")
+          .form-group
+            %label.col-sm-2.control-label CVC
+            .col-sm-6
+              %input.form-control(type="text" maxlength="4" data-stripe="cvc" placeholder="CVC")
+          /
+            .form-group
+              %label.col-sm-2.control-label
+                %span Expiration (MM/YYYY)
+              .col-sm-6
+                .form-inline
+                  %input.form-control(type="text" maxlength="2" data-stripe="exp-month" placeholder="MM")
+                  %input.form-control(type="text" maxlength="4" data-stripe="exp-year" placeholder="YYYY")
+          .form-group
+            %label.col-sm-2.control-label
+              %span Expiration (MM/YYYY)
+            .col-sm-6
+              .form-inline
+                =select_month(Date.today, {add_month_number: true}, class: 'form-control', data: {stripe: "exp-month"})
+                =select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 5}, class: 'form-control', data: {stripe: "exp-year"})
+        %fieldset
+          .form-group
+            .col-sm-offset-2.col-sm-6
+              %button.btn.btn-default(type="submit") Pay with card
+
