@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def new_with_invitation_token
-    
     @invitation = Invitation.find_by(token: params[:token])
     if @invitation
       @user = User.new(email: @invitation.recipient_email)
@@ -24,13 +23,46 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    if @user.valid?
+      # Charge
+      charge = handle_charge_with_stripe_wrapper
+      if charge.fail?
+        flash[:error] = charge.error_message
+        #raise ActiveRecord::Rollback, "Credit Card Error: #{charge.error_message}"
+        render :new
+      else
+        # Register
+        @user.save
+        # Inviatation(follow each other)
+        handle_invitaion
+        # E-mail
+        AppMailer.send_welcome_email(@user).deliver
+        redirect_to signin_path, flash: {notice: "Successfully register."}
+      end
+    else
+      render :new
+    end
+  end
+
+  def create_original_1
+    @user = User.new(user_params)
     User.transaction do
       if @user.save
-        ret_msg = handle_charge
-        if !!ret_msg.presence
-          flash[:error] = ret_msg
-          raise ActiveRecord::Rollback, "Credit Card Error: #{ret_msg}"
+        
+        #--->
+        #ret_msg = handle_charge
+        #if !!ret_msg.presence
+        #  flash[:error] = ret_msg
+        #  raise ActiveRecord::Rollback, "Credit Card Error: #{ret_msg}"
+        #end
+        #--->
+        charge = handle_charge_with_stripe_wrapper
+        if charge.fail?
+          flash[:error] = charge.error_message
+          raise ActiveRecord::Rollback, "Credit Card Error: #{charge.error_message}"
         end
+        #--->
+
         #--->
         #invitation_token = params[:invitation_token]
         #if invitation_token
@@ -73,6 +105,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def handle_charge_with_stripe_wrapper
+    token = params[:stripeToken]
+    StripeWrapper::Charge.create({ amount: 999,
+                                   currency: "usd",
+                                   source: token,
+                                   description: "Sing up charge for #{@user.email}" })
+  end
+
   def handle_charge
     Stripe.api_key = ENV['stripe_api_key']
     # Get the credit card details submitted by the form
@@ -80,14 +120,12 @@ class UsersController < ApplicationController
     # Create the charge on Stripe's servers - this will charge the user's card
     begin
       charge = Stripe::Charge.create(
-        :amount => 999, # amount in cents, again
+        :amount => 999,
         :currency => "usd",
         :source => token,
         :description => "Sing up charge for #{@user.email}"
       )
     rescue Stripe::CardError => e
-      # The card has been declined
-      #flash[:error] = e.message
       return e.message
     end
   end

@@ -11,7 +11,23 @@ require 'capybara/email/rspec'
 # 2015.04.14
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!
-#
+
+# 2015.04.23
+require 'vcr'
+
+#2015.04.27
+#Configuring host and port for Selenium/Capybara
+# ref: http://robert-reiz.com/2014/04/25/configuring-host-and-port-for-seleniumcapybara/
+Capybara.server_port = 52662
+#Capybara.app_host = "http://localhost:3000"
+#Capybara.server_host = "localhost"
+
+
+#2015.04.27
+# using :webkit as javascript driver
+# ref: https://github.com/thoughtbot/capybara-webkit
+Capybara.javascript_driver = :webkit
+
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -41,8 +57,14 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
-
+  #config.use_transactional_fixtures = true
+  #--->
+  # If you prefer to manage the data yourself, or using another tool like
+  # database_cleaner to do it for you,
+  # simply tell RSpec to tell Rails not to manage transactions:
+  # ref: https://relishapp.com/rspec/rspec-rails/docs/transactions
+  config.use_transactional_fixtures = false
+  #--->
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
@@ -68,4 +90,43 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/v/3-0/docs
   config.infer_spec_type_from_file_location!
+  
+  # gem: vcr
+  # so we can use :vcr rather than :vcr => true;
+  # in RSpec 3 this will no longer be necessary.
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  #--->
+  # ref: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
+  # gem: database_cleaner
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  config.before(:each) do
+    DatabaseCleaner.strategy = :truncation
+  end
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+  #--->
+
+
+ end
+
+#--->
+# gem: vcr
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.ignore_hosts '127.0.0.1', 'localhost'
+  c.ignore_localhost = true
 end
+#--->
+

@@ -54,10 +54,15 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'database_cleaner', '1.2.0'
+  #gem 'database_cleaner', '1.2.0' #truncate all the records in testing database
+  gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'vcr'
+  gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
 end
 
 

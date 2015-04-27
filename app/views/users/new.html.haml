@@ -21,7 +21,7 @@
           .form-group
             =f.label(:email, "Email Address", class: "control-label col-sm-2")
             .col-sm-6
-              =f.text_field(:email, class: "form-control")
+              =f.text_field(:email, class: "form-control", value: @user.email? ? @user.email : "" )
           .form-group
             =f.label(:password, "Password", class: "control-label col-sm-2")
             .col-sm-6
@@ -37,13 +37,13 @@
           .form-group
             %span.payment-errors
           .form-group
-            %label.col-sm-2.control-label Card Number
+            %label.col-sm-2.control-label(for="card_number") Card Number
             .col-sm-6
-              %input.form-control(type="text" maxlength="20" data-stripe="number" placeholder="Card number")
+              %input.form-control(id="card_number" type="text" maxlength="20" data-stripe="number" placeholder="Card number")
           .form-group
-            %label.col-sm-2.control-label CVC
+            %label.col-sm-2.control-label(for="cvc") CVC
             .col-sm-6
-              %input.form-control(type="text" maxlength="4" data-stripe="cvc" placeholder="CVC")
+              %input.form-control(id="cvc" type="text" maxlength="4" data-stripe="cvc" placeholder="CVC")
           /
             .form-group
               %label.col-sm-2.control-label

@@ -17,7 +17,7 @@ Myflix::Application.routes.draw do
   
   resources :reset_passwords, only: [:show,:create]
   #get '/invalid_token', to: "reset_passwords#invalid_token"
-  get '/invalid_token', to: "reset_passwords#invalid_token"
+  get '/invalid_token', to: "ui#invalid_token"
 
 
   resources :users, only: [:show]

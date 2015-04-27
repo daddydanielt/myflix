@@ -15,6 +15,8 @@ module Myflix
       g.template_engine :haml
     end
     
+    config.autoload_paths << "#{config.root}/app"
+
     #Tealeaf:: Add auto loading path
     config.autoload_paths << "#{Rails.root}/lib/autoloads"
   end
