@@ -2,6 +2,56 @@ require 'spec_helper'
 
 
 describe StripeWrapper do
+  describe StripeWrapper::Customer, {vcr: true} do
+    it "creates a customer with valid card and valid subscription plan" do
+      credit_card_valid = { card_number: 4242424242424242, exp_month: 12 ,exp_year: 2016, cvc: 123 }
+      stripe_token = create_stripe_card_token( credit_card_valid )
+      mary = Fabricate(:user)
+      response = StripeWrapper::Customer.create(
+        :plan => "myflix_base",
+        :user => mary,
+        :source => stripe_token.id #note: just pass stripe_token.id
+      )
+      expect(response).not_to be_fail
+      expect(response.fail?).to be_falsey
+      expect(response.error_message).not_to be_present
+    end
+    it "doesn't create a customer with any invalid credit card issues" do
+      credit_card_declined = {card_number: 4000000000000002, exp_month: 12 ,exp_year: 2020, cvc: 123}
+      stripe_token = create_stripe_card_token( credit_card_declined )
+      sydney = Fabricate(:user)
+      response = StripeWrapper::Customer.create(
+        :plan => "myflix_base",
+        :user => sydney,
+        :source => stripe_token.id #note: just pass stripe_token.id
+      )
+      expect(response).to be_fail
+      expect(response.fail?).to be_truthy
+    end
+    it "returns a error_message with any invalid credit card issues" do
+      credit_card_declined = {card_number: 4000000000000002, exp_month: 12 ,exp_year: 2020, cvc: 123}
+      stripe_token = create_stripe_card_token( credit_card_declined )
+      sydney = Fabricate(:user)
+      response = StripeWrapper::Customer.create(
+        :plan => "myflix_base",
+        :user => sydney,
+        :source => stripe_token.id #note: just pass stripe_token.id
+      )
+      expect(response.error_message).to be_present
+    end
+    it "returns error_message with invalid subscription plan " do
+      credit_card_valid = { card_number: 4242424242424242, exp_month: 12 ,exp_year: 2016, cvc: 123 }
+      stripe_token = create_stripe_card_token( credit_card_valid )
+      mary = Fabricate(:user)
+      response = StripeWrapper::Customer.create(
+        :plan => "invalid_subscription_plan",
+        :user => mary,
+        :source => stripe_token.id #note: just pass stripe_token.id
+      )
+      expect(response.error_message).to be_present
+    end
+  end # End describe StripeWrapper::Customer
+
   describe StripeWrapper::Charge do
     describe "(testing style #1) .create", :vcr do
       let(:credit_card_valid) { {card_number: 4242424242424242, exp_month: 12 ,exp_year: 2020, cvc: 123} }
@@ -32,24 +82,24 @@ describe StripeWrapper do
           expect(stripe_wrapper.error_message).to be_present
         end
       end
-      #--->
-      def create_stripe_card_token(options={})
-        #-->
-        #StripeWrapper::Charge.set_api_key
-        #-->
-        #Move the code to the "config/initializers/stripe.rb"
-        #so we don't need to call 'set_api_key' function
-        #-->
-        Stripe::Token.create(
-          :card => {
-            :number => options[:card_number],
-            :exp_month => options[:exp_month],
-            :exp_year => options[:exp_year],
-            :cvc => options[:cvc]
-          }
-        )
-      end
     end
+  end # End describe StripeWrapper::Charge
+
+  def create_stripe_card_token(options={})
+    #-->
+    #StripeWrapper::Charge.set_api_key
+    #-->
+    #Move the code to the "config/initializers/stripe.rb"
+    #so we don't need to call 'set_api_key' function
+    #-->
+    Stripe::Token.create(
+      :card => {
+        :number => options[:card_number],
+        :exp_month => options[:exp_month],
+        :exp_year => options[:exp_year],
+        :cvc => options[:cvc]
+      }
+    )
   end
 end
 

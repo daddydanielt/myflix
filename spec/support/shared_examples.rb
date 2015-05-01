@@ -1,5 +1,5 @@
 shared_examples "tokenable" do
-  it "generate random token" do
+  it "generates random token" do
     expect(token).to be_present
   end
 end
@@ -15,13 +15,13 @@ shared_examples "requires sign in" do
 end
 
 shared_examples "requires admin" do
-  it "redired non admin user to home_path" do
+  it "redirects nonadmin user to home_path" do
     non_admin_user = Fabricate(:user)
     set_current_user(non_admin_user)
     action
     expect(response).to redirect_to home_path
   end
-  it "set flash[:error] for non admin user" do
+  it "sets flash[:error] for non admin user" do
     non_admin_user = Fabricate(:user)
     set_current_user(non_admin_user)
     action
@@ -29,19 +29,16 @@ shared_examples "requires admin" do
   end
 end
 
-
-shared_examples "email sending after successfully sing up" do
-  context "email sending" do
-    it "send out the email" do
-      ActionMailer::Base.deliveries.should_not be_empty
-    end
-    it "has the right content" do
-      email = ActionMailer::Base.deliveries.last
-      expect(email.body).to include(user_params[:full_name])
-    end
-    it "sneds to the right recipient" do
-      email = ActionMailer::Base.deliveries.last
-      expect(email.to.first).to eq(user_params[:email])
-    end
+shared_examples "send email after successfully sing up" do
+  it "sends out the email" do
+    ActionMailer::Base.deliveries.should_not be_empty
+  end
+  it "has the right content" do
+    email = ActionMailer::Base.deliveries.last
+    expect(email.body).to include(user_params[:full_name])
+  end
+  it "sends to the right recipient" do
+    email = ActionMailer::Base.deliveries.last
+    expect(email.to.first).to eq(user_params[:email])
   end
 end
