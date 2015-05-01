@@ -6,7 +6,8 @@
       .video_info.col-sm-3
         %header
           %h3 #{@video.title.capitalize}
-          %span Rating: 4.5/5.0
+          %span Rating:
+          = @video.rating
         %p Pizza boy Philip J. Fry awakens in the 31st century after 1,000 years of cryogenic preservation in this animated series. After he gets a job at an interplanetary delivery service, Fry embarks on ridiculous escapades to make sense of his predicament.
         .actions
           %a.btn.btn-primary(href="#{@video.video_url}") Watch Now

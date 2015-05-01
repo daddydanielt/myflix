@@ -37,6 +37,9 @@ class Video < ActiveRecord::Base
     token
   end
 
+  def rating
+    reviews.average(:rating).round(1) if reviews.average(:rating)
+  end
   #private
   #def generate_token
   #  self.token = SecureRandom.urlsafe_base64

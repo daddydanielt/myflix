@@ -17,7 +17,7 @@ describe StripeWrapper do
           stripe_wrapper = StripeWrapper::Charge.create(charge_options)
           #expect(stripe_wrpper.response.amount).to eq(charge_options[:amount])
           #expect(stripe_wrapper.response.currency).to eq(charge_options[:currency])
-          expect(stripe_wrapper.fail?).not_to be_true
+          expect(stripe_wrapper.fail?).to be_falsey
           expect(stripe_wrapper).not_to be_fail
         end
       end

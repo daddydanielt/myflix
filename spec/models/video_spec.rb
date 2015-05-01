@@ -22,6 +22,17 @@ describe Video do
   it_behaves_like "tokenable" do
     let(:token) { Fabricate(:video).token }
   end
+  
+  #--->
+  describe "#rating" do
+    it "returns the average reviews' rating if there is any review associated to itself." do
+      v1 = Fabricate(:video)
+      v1.reviews << Fabricate(:review, rating: 5)
+      v1.reviews << Fabricate(:review, rating: 1)
+      expect(Video.last.rating).to eq(3)
+    end
+  end
+
   #--->
   describe "#search_by_title" do
     it "returns an empty array if there's no match" do

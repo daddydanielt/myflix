@@ -65,126 +65,160 @@ describe UsersController do
   end # End describe "GET new_with_invitation_token"
 
   describe "POST create" do
-    context "valid personal info and validcredit card" do
+    #--->
+    #context "valid personal info and validcredit card" do
+    #--->
+    context "successfully sign up" do
       let(:user_params) { Fabricate.attributes_for(:user) }
       # user_params_b = {email: Faker::Internet.email, password: Faker::Internet.password, full_name: Faker::Name.name}
       # before {  post :create, user: user_params }
       before do
-        charge = double("charge", :fail? => false )
-        #--->
-        #StripeWrapper::Charge.stub(:create) { charge }
-        #--->
-        StripeWrapper::Charge.should_receive(:create).and_return(charge)
-        #--->
+      #--->
+      #  charge = double("charge", :fail? => false )
+      #  #--->
+      #  #StripeWrapper::Charge.stub(:create) { charge }
+      #  #--->
+      #  StripeWrapper::Charge.should_receive(:create).and_return(charge)
+      #  #--->
+      #--->
+      result = double("result", :successfull? => true, :error_message => nil)
+      UserSignup.any_instance.should_receive(:sign_up).and_return(result)
+      #--->
       end
-      after { ActionMailer::Base.deliveries.clear }
-      context "with invitation_token" do
-        it "follow the inviter" do
-          mary = Fabricate(:user)
-          invitation = Fabricate(:invitation, inviter_id: mary.id )
-          post :create, user: user_params, invitation_token: invitation.token
-          expect(assigns(:user).the_users_i_following).to include(mary)
-        end
-        it "the inviter follow the user" do
-          mary = Fabricate(:user)
-          invitation = Fabricate(:invitation, inviter_id: mary.id )
-          post :create, user: user_params, invitation_token: invitation.token
-          expect(mary.the_users_i_following).to include(assigns(:user))
-        end
-
-        it "expires the invitation tokn upon acceptance" do
-          mary = Fabricate(:user)
-          invitation = Fabricate(:invitation, inviter_id: mary.id )
-          post :create, user: user_params, invitation_token: invitation.token
-          expect(invitation.reload.token).to be_nil
-        end
-      end
+      #after do
+      # ActionMailer::Base.deliveries.clear
+      #end
+    
+    # context "with invitation_token" do
+    #   it "follow the inviter" do
+    #     mary = Fabricate(:user)
+    #     invitation = Fabricate(:invitation, inviter_id: mary.id )
+    #     post :create, user: user_params, invitation_token: invitation.token
+    #     expect(assigns(:user).the_users_i_following).to include(mary)
+    #   end
+    #   it "the inviter follow the user" do
+    #     mary = Fabricate(:user)
+    #     invitation = Fabricate(:invitation, inviter_id: mary.id )
+    #     post :create, user: user_params, invitation_token: invitation.token
+    #     expect(mary.the_users_i_following).to include(assigns(:user))
+    #   end
+    #
+    #   it "expires the invitation tokn upon acceptance" do
+    #     mary = Fabricate(:user)
+    #     invitation = Fabricate(:invitation, inviter_id: mary.id )
+    #     post :create, user: user_params, invitation_token: invitation.token
+    #     expect(invitation.reload.token).to be_nil
+    #   end
+    # end
 
       it "set @user" do
         post :create, user: user_params
-        expect(assigns(:user)).to eq(User.first)
+        #expect(assigns(:user)).to eq(User.last)
+        expect(assigns(:user)).to be_instance_of User
       end
-      it "create the user" do
-        post :create, user: user_params
-        expect(User.first.email).to eq(user_params[:email])
-        expect(User.first.full_name).to eq(user_params[:full_name])
-        expect(User.first.authenticate(user_params[:password])).to eq(User.first)
-      end
-      context "email sending" do
-        it "send out the email" do
-          post :create, user: user_params
-          ActionMailer::Base.deliveries.should_not be_empty
-        end
-        it "has the right content" do
-          post :create, user: user_params
-          email = ActionMailer::Base.deliveries.last
-          expect(email.body).to include(user_params[:full_name])
-        end
-        it "sneds to the right recipient" do
-          post :create, user: user_params
-          email = ActionMailer::Base.deliveries.last
-          expect(email.to.first).to eq(user_params[:email])
-        end
-      end
+
+      #it "create the user" do
+      #  post :create, user: user_params
+      #  expect(User.first.email).to eq(user_params[:email])
+      #  expect(User.first.full_name).to eq(user_params[:full_name])
+      #  expect(User.first.authenticate(user_params[:password])).to eq(User.first)
+      #end
+      
+      #context "email sending" do
+      #  it "send out the email" do
+      #    post :create, user: user_params
+      #    ActionMailer::Base.deliveries.should_not be_empty
+      #  end
+      #  it "has the right content" do
+      #    post :create, user: user_params
+      #    email = ActionMailer::Base.deliveries.last
+      #    expect(email.body).to include(user_params[:full_name])
+      #  end
+      #  it "sneds to the right recipient" do
+      #    post :create, user: user_params
+      #    email = ActionMailer::Base.deliveries.last
+      #    expect(email.to.first).to eq(user_params[:email])
+      #  end
+      #end
+      
       it "redirect to the signin_path" do
         post :create, user: user_params
         expect(response).to redirect_to(signin_path)
       end
     end
     
-    context "valid personal info and declined credit card" do
+    context "failed to sign up" do
+    #context "valid personal info and declined credit card" do
       let(:user_params) { Fabricate.attributes_for(:user) }
-      let(:charge){ double("charge", fail?: true, error_message: "Credict Card is declined.")}
+      #--->
+      #let(:charge){ double("charge", fail?: true, error_message: "Credict Card is declined.")}
+      #--->
       before do
-        StripeWrapper::Charge.stub(:create).and_return(charge)
-        post :create, user: user_params, stripeToken: '1234567890'
+        #--->
+        #StripeWrapper::Charge.stub(:create).and_return(charge)
+        #--->
+        result = double("result", :successfull? => false, :error_message => "some kind of errors")
+        UserSignup.any_instance.should_receive(:sign_up).and_return(result)
+        #--->
+        post :create, user: user_params, stripeToken: '1234567890-fake'
       end
-      it "doesn't create a new user record" do
-        expect(User.count).to eq(0)
+      #it "doesn't create a new user record" do
+      #  expect(User.count).to eq(0)
+      #end
+      it "set @user" do
+        expect(assigns(:user)).to be_instance_of(User)
       end
       it "render :new template" do
         expect(response).to render_template(:new)
       end
-      it "sets the flash error message" do
+      it "sets the flash[:error] message" do
         expect(flash[:error]).to be_present
       end
     end
 
-    context "invalid personal info" do
-      # invalid params: miss :email attribute
-      #user_params = { password: Faker::Internet.password, full_name: Faker::Name.name}
-      let(:user_params) { Fabricate.attributes_for(:user).slice(:email, :full_name) }
-      before do
-        StripeWrapper::Charge.should_not_receive(:create)
-        post :create, user: user_params
-      end
-      #after { ActionMailer::Base.deliveries.clear }
-      it "set @user" do
-        expect(assigns(:user)).to be_instance_of(User)
-      end
-      it "doesn't create the user" do
-        #expect(User.all.size).to eq(0)
-        expect(User.count).to eq(0)
-      end
-      it "doesn't send email to the user" do
-        #--->
-        # I add the after{} filter to clear the ActionMailer::Base.delieveries count
-        #email = ActionMailer::Base.deliveries.last
-        #email.to.should_not eq(user_params[:email])
-        #--->
-        expect(ActionMailer::Base.deliveries.count).to eq(0)
-        #--->
-      end
-      it "render :new template" do
-        expect(response).to render_template(:new)
-      end
-      #--->
-      it "doesn't charge the credit card" do
-        #verify the communication with StripeWrapper::Chare in the #Create action
-        expect(StripeWrapper::Charge).not_to receive(:charge)
-      end
-      #--->
-    end
+    #context "invalid personal info" do
+    #  # invalid params: miss :email attribute
+    #  #user_params = { password: Faker::Internet.password, full_name: Faker::Name.name}
+    #  let(:user_params) { Fabricate.attributes_for(:user).slice(:email, :full_name) }
+    #  before do
+    #    #--->
+    #    #StripeWrapper::Charge.should_not_receive(:create)
+    #    #--->
+    #    result = double("result", :successfull? => false, :error_message => "Invalid user information, please check the errors.")
+    #    UserSignup.any_instance.should_receive(:sign_up).and_return(result)
+    #    #--->
+    #    post :create, user: user_params
+    #  end
+    #  #after { ActionMailer::Base.deliveries.clear }
+    #  it "set @user" do
+    #    expect(assigns(:user)).to be_instance_of(User)
+    #  end
+    #  #it "doesn't create the user" do
+    #  #  #expect(User.all.size).to eq(0)
+    #  #  expect(User.count).to eq(0)
+    #  #end
+    #  #it "doesn't send email to the user" do
+    #  #  #--->
+    #  #  # I add the after{} filter to clear the ActionMailer::Base.delieveries count
+    #  #  #email = ActionMailer::Base.deliveries.last
+    #  #  #email.to.should_not eq(user_params[:email])
+    #  #  #--->
+    #  #  expect(ActionMailer::Base.deliveries.count).to eq(0)
+    #  #  #--->
+    #  #end
+    #  it "render :new template" do
+    #    expect(response).to render_template(:new)
+    #  end
+    #  #--->
+    #  #it "doesn't charge the credit card" do
+    #  #  #verify the communication with StripeWrapper::Chare in the #Create action
+    #  #  expect(StripeWrapper::Charge).not_to receive(:charge)
+    #  #end
+    #  #--->
+    #  it "display flash[:error] message" do
+    #    expect(flash[:error]).to be_present
+    #  end
+    #end
   end # End describe "POST create"
 end
 

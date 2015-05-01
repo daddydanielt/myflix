@@ -28,3 +28,20 @@ shared_examples "requires admin" do
     expect(flash[:error]).to be_present
   end
 end
+
+
+shared_examples "email sending after successfully sing up" do
+  context "email sending" do
+    it "send out the email" do
+      ActionMailer::Base.deliveries.should_not be_empty
+    end
+    it "has the right content" do
+      email = ActionMailer::Base.deliveries.last
+      expect(email.body).to include(user_params[:full_name])
+    end
+    it "sneds to the right recipient" do
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to.first).to eq(user_params[:email])
+    end
+  end
+end
