@@ -16,3 +16,4 @@
 
 // ref:[http://markusslima.github.io/bootstrap-filestyle/]
 //= require ./bootstrap-plugins/bootstrap-filestyle
+//= require ./stripe/payment.js
