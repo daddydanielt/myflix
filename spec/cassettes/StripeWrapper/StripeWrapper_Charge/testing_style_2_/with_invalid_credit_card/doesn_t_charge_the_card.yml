@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:18:36 GMT
+      - Mon, 04 May 2015 07:51:19 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_1AErr80bZQ83LMWl
+      - req_BkJcRtRcOPhGkDOS
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15ycuWHm1LsTwnnZivh87IYR",
+          "id": "tok_15yeMFHm1LsTwnnZcDLzW01f",
           "livemode": false,
-          "created": 1430720316,
+          "created": 1430725879,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15ycuWHm1LsTwnnZJyi0DbvV",
+            "id": "card_15yeMFHm1LsTwnnZmHwyEHvO",
             "object": "card",
             "last4": "0002",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:18:36 GMT
+  recorded_at: Mon, 04 May 2015 07:51:19 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&source=tok_15ycuWHm1LsTwnnZivh87IYR&description=Sing%20up%20charge%20user%20money
+      string: amount=999&currency=usd&source=tok_15yeMFHm1LsTwnnZcDLzW01f&description=Sing%20up%20charge%20user%20money
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -122,7 +122,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:18:37 GMT
+      - Mon, 04 May 2015 07:51:20 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_nM9fwz5qtSLmmC3L
+      - req_xk2bGbcmv4PKjj0t
       Stripe-Version:
       - '2014-08-04'
     body:
@@ -151,9 +151,9 @@ http_interactions:
             "message": "Your card was declined.",
             "type": "card_error",
             "code": "card_declined",
-            "charge": "ch_15ycuXHm1LsTwnnZyI8XtdKN"
+            "charge": "ch_15yeMGHm1LsTwnnZq7l9xcF2"
           }
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:18:37 GMT
+  recorded_at: Mon, 04 May 2015 07:51:20 GMT
 recorded_with: VCR 2.9.3

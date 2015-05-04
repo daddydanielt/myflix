@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:55 GMT
+      - Mon, 04 May 2015 07:50:24 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_DeiLvbIFBwOsKDCP
+      - req_qwFVH6g5FuYwuQgD
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15ycm7Hm1LsTwnnZGCLPq2QG",
+          "id": "tok_15yeLMHm1LsTwnnZHcjzVrUT",
           "livemode": false,
-          "created": 1430719795,
+          "created": 1430725824,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15ycm7Hm1LsTwnnZrq1BTo1G",
+            "id": "card_15yeLMHm1LsTwnnZ5iyLRVKk",
             "object": "card",
             "last4": "0341",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:55 GMT
+  recorded_at: Mon, 04 May 2015 07:50:24 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15ycm7Hm1LsTwnnZGCLPq2QG&plan=myflix_base&email=sydnet%40test%2Ccom
+      string: source=tok_15yeLMHm1LsTwnnZHcjzVrUT&plan=myflix_base&email=sydnet%40test%2Ccom
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -122,7 +122,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:56 GMT
+      - Mon, 04 May 2015 07:50:26 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_WS2NKIiQwmEykTWf
+      - req_l7IUYIDM9v5THUky
       Stripe-Version:
       - '2014-08-04'
     body:
@@ -155,5 +155,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:57 GMT
+  recorded_at: Mon, 04 May 2015 07:50:26 GMT
 recorded_with: VCR 2.9.3

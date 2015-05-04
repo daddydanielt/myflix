@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:08:45 GMT
+      - Mon, 04 May 2015 07:52:13 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_CDxKSSvziQma8w85
+      - req_wSQgLiZpfCEH9kn1
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15yckzHm1LsTwnnZn5pnJRUo",
+          "id": "tok_15yeN7Hm1LsTwnnZtRCs3IwX",
           "livemode": false,
-          "created": 1430719725,
+          "created": 1430725933,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15yckzHm1LsTwnnZsMSWtmKl",
+            "id": "card_15yeN7Hm1LsTwnnZor63A4fb",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:08:45 GMT
+  recorded_at: Mon, 04 May 2015 07:52:14 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&source=tok_15yckzHm1LsTwnnZn5pnJRUo&description=Sing%20up%20charge%20for%20jayce%40graham.name
+      string: amount=999&currency=usd&source=tok_15yeN7Hm1LsTwnnZtRCs3IwX&description=Sing%20up%20charge%20for%20maiya.jacobson%40kuphal.com
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -113,7 +113,7 @@ http_interactions:
         DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
         PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
-      - '118'
+      - '126'
   response:
     status:
       code: 200
@@ -122,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:08:47 GMT
+      - Mon, 04 May 2015 07:52:15 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2018'
+      - '2026'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_bIATwphV9Ts0oq4u
+      - req_vxaAQ8OCSdxxMEIK
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -149,9 +149,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_15ycl0Hm1LsTwnnZ3Q8u2oT3",
+          "id": "ch_15yeN9Hm1LsTwnnZdO6RqBF2",
           "object": "charge",
-          "created": 1430719726,
+          "created": 1430725935,
           "livemode": false,
           "paid": true,
           "status": "paid",
@@ -159,7 +159,7 @@ http_interactions:
           "currency": "usd",
           "refunded": false,
           "source": {
-            "id": "card_15yckzHm1LsTwnnZsMSWtmKl",
+            "id": "card_15yeN7Hm1LsTwnnZor63A4fb",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -184,7 +184,7 @@ http_interactions:
           },
           "captured": true,
           "card": {
-            "id": "card_15yckzHm1LsTwnnZsMSWtmKl",
+            "id": "card_15yeN7Hm1LsTwnnZor63A4fb",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -207,13 +207,13 @@ http_interactions:
             "metadata": {},
             "customer": null
           },
-          "balance_transaction": "txn_15ycl1Hm1LsTwnnZqxgn9CdR",
+          "balance_transaction": "txn_15yeN9Hm1LsTwnnZslNavEtY",
           "failure_message": null,
           "failure_code": null,
           "amount_refunded": 0,
           "customer": null,
           "invoice": null,
-          "description": "Sing up charge for jayce@graham.name",
+          "description": "Sing up charge for maiya.jacobson@kuphal.com",
           "dispute": null,
           "metadata": {},
           "statement_descriptor": null,
@@ -226,11 +226,11 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/charges/ch_15ycl0Hm1LsTwnnZ3Q8u2oT3/refunds",
+            "url": "/v1/charges/ch_15yeN9Hm1LsTwnnZdO6RqBF2/refunds",
             "data": []
           },
           "statement_description": null
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:08:47 GMT
+  recorded_at: Mon, 04 May 2015 07:52:15 GMT
 recorded_with: VCR 2.9.3

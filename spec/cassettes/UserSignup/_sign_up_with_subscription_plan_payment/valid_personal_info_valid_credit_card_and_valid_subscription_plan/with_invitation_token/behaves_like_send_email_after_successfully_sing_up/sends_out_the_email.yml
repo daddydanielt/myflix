@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:11 GMT
+      - Mon, 04 May 2015 07:51:54 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_zMmnYtjyoXzcU20D
+      - req_aXcS1mcsfg257ibr
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15yclPHm1LsTwnnZzDle90od",
+          "id": "tok_15yeMoHm1LsTwnnZDsTfhMg0",
           "livemode": false,
-          "created": 1430719751,
+          "created": 1430725914,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15yclOHm1LsTwnnZxmnzRRj1",
+            "id": "card_15yeMoHm1LsTwnnZjFCAxxdK",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:11 GMT
+  recorded_at: Mon, 04 May 2015 07:51:54 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15yclPHm1LsTwnnZzDle90od&plan=myflix_base&email=fay.lowe%40gleichner.biz
+      string: source=tok_15yeMoHm1LsTwnnZDsTfhMg0&plan=myflix_base&email=florencio%40lynch.org
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -113,7 +113,7 @@ http_interactions:
         DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
         PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
-      - '83'
+      - '80'
   response:
     status:
       code: 200
@@ -122,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:12 GMT
+      - Mon, 04 May 2015 07:51:56 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3267'
+      - '3264'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_vYZDyL1A5Xu6EUBZ
+      - req_nCdU5e0jvtOWgOto
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -150,21 +150,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1430719752,
-          "id": "cus_6Ayi18v65BQ6L4",
+          "created": 1430725915,
+          "id": "cus_6B0NgNvyQsubJ0",
           "livemode": false,
           "description": null,
-          "email": "fay.lowe@gleichner.biz",
+          "email": "florencio@lynch.org",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6Ayi18v65BQ6L4/subscriptions",
+            "url": "/v1/customers/cus_6B0NgNvyQsubJ0/subscriptions",
             "data": [
               {
-                "id": "sub_6AyiOmyAnyWQZK",
+                "id": "sub_6B0NlLeW7H0Bk4",
                 "plan": {
                   "interval": "month",
                   "name": "the base plan for myflix",
@@ -181,12 +181,12 @@ http_interactions:
                   "statement_description": null
                 },
                 "object": "subscription",
-                "start": 1430719752,
+                "start": 1430725915,
                 "status": "active",
-                "customer": "cus_6Ayi18v65BQ6L4",
+                "customer": "cus_6B0NgNvyQsubJ0",
                 "cancel_at_period_end": false,
-                "current_period_start": 1430719752,
-                "current_period_end": 1433398152,
+                "current_period_start": 1430725915,
+                "current_period_end": 1433404315,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -206,10 +206,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6Ayi18v65BQ6L4/cards",
+            "url": "/v1/customers/cus_6B0NgNvyQsubJ0/cards",
             "data": [
               {
-                "id": "card_15yclOHm1LsTwnnZxmnzRRj1",
+                "id": "card_15yeMoHm1LsTwnnZjFCAxxdK",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -230,19 +230,19 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_6Ayi18v65BQ6L4"
+                "customer": "cus_6B0NgNvyQsubJ0"
               }
             ]
           },
-          "default_card": "card_15yclOHm1LsTwnnZxmnzRRj1",
+          "default_card": "card_15yeMoHm1LsTwnnZjFCAxxdK",
           "sources": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6Ayi18v65BQ6L4/sources",
+            "url": "/v1/customers/cus_6B0NgNvyQsubJ0/sources",
             "data": [
               {
-                "id": "card_15yclOHm1LsTwnnZxmnzRRj1",
+                "id": "card_15yeMoHm1LsTwnnZjFCAxxdK",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -263,12 +263,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_6Ayi18v65BQ6L4"
+                "customer": "cus_6B0NgNvyQsubJ0"
               }
             ]
           },
-          "default_source": "card_15yclOHm1LsTwnnZxmnzRRj1"
+          "default_source": "card_15yeMoHm1LsTwnnZjFCAxxdK"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:12 GMT
+  recorded_at: Mon, 04 May 2015 07:51:56 GMT
 recorded_with: VCR 2.9.3

@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:10:05 GMT
+      - Mon, 04 May 2015 07:50:15 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_zNLpAyHDbWbXENt6
+      - req_YfANd4p4wcxVOWxr
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15ycmHHm1LsTwnnZBbOCq1zo",
+          "id": "tok_15yeLDHm1LsTwnnZkIQQM9o8",
           "livemode": false,
-          "created": 1430719805,
+          "created": 1430725815,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15ycmHHm1LsTwnnZQNT0foqg",
+            "id": "card_15yeLDHm1LsTwnnZ4enz7OWQ",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:10:05 GMT
+  recorded_at: Mon, 04 May 2015 07:50:15 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15ycmHHm1LsTwnnZBbOCq1zo&plan=invalid_subscription_plan&email=domenico%40sauer.org
+      string: source=tok_15yeLDHm1LsTwnnZkIQQM9o8&plan=invalid_subscription_plan&email=terrance.hansen%40spinkafeeney.biz
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -113,7 +113,7 @@ http_interactions:
         DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
         PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
-      - '93'
+      - '107'
   response:
     status:
       code: 400
@@ -122,7 +122,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:10:06 GMT
+      - Mon, 04 May 2015 07:50:16 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_K5hOH9SzwpQ1Km9p
+      - req_Pn1WrWC2dUxKX63d
       Stripe-Version:
       - '2014-08-04'
     body:
@@ -154,5 +154,5 @@ http_interactions:
           }
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:10:06 GMT
+  recorded_at: Mon, 04 May 2015 07:50:16 GMT
 recorded_with: VCR 2.9.3

@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:05 GMT
+      - Mon, 04 May 2015 07:51:43 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_lNHXWxNqWtmUQfXZ
+      - req_wHPWc7lbunmPdnIB
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15yclJHm1LsTwnnZyLD4MPlg",
+          "id": "tok_15yeMdHm1LsTwnnZfdY1jOXw",
           "livemode": false,
-          "created": 1430719745,
+          "created": 1430725903,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15yclJHm1LsTwnnZYuQMIMXk",
+            "id": "card_15yeMdHm1LsTwnnZEt4NZ5Ax",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -90,13 +90,13 @@ http_interactions:
           "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:05 GMT
+  recorded_at: Mon, 04 May 2015 07:51:43 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15yclJHm1LsTwnnZyLD4MPlg&plan=myflix_base&email=concepcion_heel%40trantowhane.biz
+      string: source=tok_15yeMdHm1LsTwnnZfdY1jOXw&plan=myflix_base&email=harvey_champlin%40schulist.info
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -113,7 +113,7 @@ http_interactions:
         DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
         PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
-      - '92'
+      - '90'
   response:
     status:
       code: 200
@@ -122,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 04 May 2015 06:09:07 GMT
+      - Mon, 04 May 2015 07:51:44 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3276'
+      - '3274'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_8I0zyYWpL4fMAvmA
+      - req_1Levob9uv1VaX5xP
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -150,21 +150,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1430719746,
-          "id": "cus_6AyickME3RtHMv",
+          "created": 1430725904,
+          "id": "cus_6B0NcTPOYoe2mn",
           "livemode": false,
           "description": null,
-          "email": "concepcion_heel@trantowhane.biz",
+          "email": "harvey_champlin@schulist.info",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6AyickME3RtHMv/subscriptions",
+            "url": "/v1/customers/cus_6B0NcTPOYoe2mn/subscriptions",
             "data": [
               {
-                "id": "sub_6AyiPGZQxGn0qh",
+                "id": "sub_6B0NOfZppWlsMZ",
                 "plan": {
                   "interval": "month",
                   "name": "the base plan for myflix",
@@ -181,12 +181,12 @@ http_interactions:
                   "statement_description": null
                 },
                 "object": "subscription",
-                "start": 1430719746,
+                "start": 1430725904,
                 "status": "active",
-                "customer": "cus_6AyickME3RtHMv",
+                "customer": "cus_6B0NcTPOYoe2mn",
                 "cancel_at_period_end": false,
-                "current_period_start": 1430719746,
-                "current_period_end": 1433398146,
+                "current_period_start": 1430725904,
+                "current_period_end": 1433404304,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -206,10 +206,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6AyickME3RtHMv/cards",
+            "url": "/v1/customers/cus_6B0NcTPOYoe2mn/cards",
             "data": [
               {
-                "id": "card_15yclJHm1LsTwnnZYuQMIMXk",
+                "id": "card_15yeMdHm1LsTwnnZEt4NZ5Ax",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -230,19 +230,19 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_6AyickME3RtHMv"
+                "customer": "cus_6B0NcTPOYoe2mn"
               }
             ]
           },
-          "default_card": "card_15yclJHm1LsTwnnZYuQMIMXk",
+          "default_card": "card_15yeMdHm1LsTwnnZEt4NZ5Ax",
           "sources": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_6AyickME3RtHMv/sources",
+            "url": "/v1/customers/cus_6B0NcTPOYoe2mn/sources",
             "data": [
               {
-                "id": "card_15yclJHm1LsTwnnZYuQMIMXk",
+                "id": "card_15yeMdHm1LsTwnnZEt4NZ5Ax",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -263,12 +263,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_6AyickME3RtHMv"
+                "customer": "cus_6B0NcTPOYoe2mn"
               }
             ]
           },
-          "default_source": "card_15yclJHm1LsTwnnZYuQMIMXk"
+          "default_source": "card_15yeMdHm1LsTwnnZEt4NZ5Ax"
         }
     http_version: 
-  recorded_at: Mon, 04 May 2015 06:09:07 GMT
+  recorded_at: Mon, 04 May 2015 07:51:44 GMT
 recorded_with: VCR 2.9.3
