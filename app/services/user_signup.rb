@@ -8,15 +8,21 @@ class UserSignup
     @params = params
   end
 
-  def sign_up( options = {})
+  def sign_up( options = {} )
     if @user.valid?
       # Charge
-      charge = ( options.has_key? :subscription_plan ) ? handle_subscription_plan_payment(options[:subscription_plan]) : handle_charge_payment
+      #charge = ( options.has_key? :subscription_plan ) ? handle_subscription_plan_payment(options[:subscription_plan]) : handle_charge_payment
+      charge = have_subscription_plan?(options) ? handle_subscription_plan_payment(options[:subscription_plan]) : handle_charge_payment
       if charge.nil? || charge.fail?
         @error_message =  charge.nil? ? "Invalid subscription plan!" : charge.error_message
         #raise ActiveRecord::Rollback, "Credit Card Error: #{charge.error_message}"
         @status = :failed
       else
+        #--->
+        #@user.customer_token = charge.response.id if have_subscription_plan?(options)
+        #--->
+        @user.customer_token = charge.token if have_subscription_plan?(options)
+        #--->
         # Register
         @user.save
         # Inviatation(follow each other)
@@ -42,6 +48,10 @@ class UserSignup
   end
 
   private
+  def have_subscription_plan?(options)
+    options.has_key? :subscription_plan
+  end
+
   def handle_invitaion
     invitation_token = @params[:invitation_token]
     if invitation_token

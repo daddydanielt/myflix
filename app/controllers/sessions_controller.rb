@@ -13,8 +13,13 @@ class SessionsController < ApplicationController
     #@user = User.find_by(email: email)
     @user = User.where(email: email).first
     if @user && @user.authenticate(password)
-      session[:user_id] = @user.id
-      redirect_to home_path, flash: {notice: "Successfull SignIn"}
+      if @user.active?
+        session[:user_id] = @user.id
+        redirect_to home_path, flash: {notice: "Successfull SignIn"}
+      else
+        flash[:notice] = "Your account has been suspended, please contact customer service."
+        redirect_to signin_path
+      end
     else
       flash[:notice] = "Permission denied."
       redirect_to signin_path

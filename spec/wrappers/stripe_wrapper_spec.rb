@@ -1,54 +1,92 @@
 require 'spec_helper'
-
-
 describe StripeWrapper do
+
   describe StripeWrapper::Customer, {vcr: true} do
-    it "creates a customer with valid card and valid subscription plan" do
-      credit_card_valid = { card_number: 4242424242424242, exp_month: 12 ,exp_year: 2016, cvc: 123 }
-      stripe_token = create_stripe_card_token( credit_card_valid )
-      mary = Fabricate(:user)
-      response = StripeWrapper::Customer.create(
-        :plan => "myflix_base",
-        :user => mary,
-        :source => stripe_token.id #note: just pass stripe_token.id
-      )
-      expect(response).not_to be_fail
-      expect(response.fail?).to be_falsey
-      expect(response.error_message).not_to be_present
+    context "valid card and valid subscription plan" do
+      let(:credit_card_valid)  {{ card_number: 4242424242424242, exp_month: 12 ,exp_year: 2016, cvc: 123 }}
+      let(:stripe_token) {create_stripe_card_token( credit_card_valid )}
+      let(:mary) {Fabricate(:user, email: "mary_#{Faker::Code.isbn}@test.com")}
+      let(:subscription_plan) {"myflix_base"}
+      it "creates a customer " do
+        response = StripeWrapper::Customer.create(
+          :plan => subscription_plan,
+          :user => mary,
+          :source => stripe_token.id #note: just pass stripe_token.id
+        )
+        expect(response).not_to be_fail
+        expect(response.fail?).to be_falsey
+        expect(response.error_message).not_to be_present
+      end
+      it "returns token" do
+        response = StripeWrapper::Customer.create(
+          :plan => subscription_plan,
+          :user => mary,
+          :source => stripe_token.id #note: just pass stripe_token.id
+        )
+        response.token.should be_present
+      end
     end
-    it "doesn't create a customer with any invalid credit card issues" do
-      credit_card_declined = {card_number: 4000000000000002, exp_month: 12 ,exp_year: 2020, cvc: 123}
-      stripe_token = create_stripe_card_token( credit_card_declined )
-      sydney = Fabricate(:user)
-      response = StripeWrapper::Customer.create(
-        :plan => "myflix_base",
-        :user => sydney,
-        :source => stripe_token.id #note: just pass stripe_token.id
-      )
-      expect(response).to be_fail
-      expect(response.fail?).to be_truthy
+    context "invalid credit card issues" do
+      context "credit card declined" do
+        let(:subscription_plan) {"myflix_base"}
+        let(:sydney) {Fabricate(:user)}
+        it_behaves_like "invalid credit card issues" do
+          let(:credit_card) {{card_number: 4000000000000002, exp_month: 12 ,exp_year: 2020, cvc: 123}}
+          let(:stripe_token) {create_stripe_card_token( credit_card )}
+        end
+      end
+
+      context "Attaching this card to a Customer object will succeed, but attemp ts to charge the customer will fail." do
+        let(:subscription_plan) {"myflix_base"}
+        let(:sydney) {Fabricate(:user, email: 'sydnet@test,com')}
+        it_behaves_like "invalid credit card issues" do
+          let(:credit_card) {{card_number: 4000000000000341, exp_month: 12 ,exp_year: 2020, cvc: 123}}
+          let(:stripe_token) {create_stripe_card_token( credit_card )}
+        end
+      end
+      #--->
+      # The following testing are moved to the shared examples, "invalid credit card issues."
+      # --->
+      #it "doesn't create a customer" do
+      #  response = StripeWrapper::Customer.create(
+      #    :plan => subscription_plan,
+      #    :user => sydney,
+      #    :source => stripe_token.id #note: just pass stripe_token.id
+      #  )
+      #  expect(response).to be_fail
+      #  expect(response.fail?).to be_truthy
+      #end
+      #it "returns a error_message" do
+      #  response = StripeWrapper::Customer.create(
+      #    :plan => subscription_plan,
+      #    :user => sydney,
+      #    :source => stripe_token.id #note: just pass stripe_token.id
+      #  )
+      #  expect(response.error_message).to be_present
+      #end
+      #it "doesn't have token value" do
+      #  response = StripeWrapper::Customer.create(
+      #    :plan => subscription_plan,
+      #    :user => sydney,
+      #    :source => stripe_token.id #note: just pass stripe_token.id
+      #  )
+      #  expect(response.token).not_to be_present
+      #end
+      #--->
     end
-    it "returns a error_message with any invalid credit card issues" do
-      credit_card_declined = {card_number: 4000000000000002, exp_month: 12 ,exp_year: 2020, cvc: 123}
-      stripe_token = create_stripe_card_token( credit_card_declined )
-      sydney = Fabricate(:user)
-      response = StripeWrapper::Customer.create(
-        :plan => "myflix_base",
-        :user => sydney,
-        :source => stripe_token.id #note: just pass stripe_token.id
-      )
-      expect(response.error_message).to be_present
-    end
-    it "returns error_message with invalid subscription plan " do
-      credit_card_valid = { card_number: 4242424242424242, exp_month: 12 ,exp_year: 2016, cvc: 123 }
-      stripe_token = create_stripe_card_token( credit_card_valid )
-      mary = Fabricate(:user)
-      response = StripeWrapper::Customer.create(
-        :plan => "invalid_subscription_plan",
-        :user => mary,
-        :source => stripe_token.id #note: just pass stripe_token.id
-      )
-      expect(response.error_message).to be_present
+    context "invalid subscription plan" do
+      let(:credit_card_valid) {{card_number: 4242424242424242, exp_month: 12 ,exp_year: 2020, cvc: 123}}
+      let(:stripe_token) {create_stripe_card_token( credit_card_valid )}
+      let(:sydney) {Fabricate(:user)}
+      let(:subscription_plan) {"invalid_subscription_plan"}
+      it "returns error_message" do
+        response = StripeWrapper::Customer.create(
+          :plan => "invalid_subscription_plan",
+          :user => sydney,
+          :source => stripe_token.id #note: just pass stripe_token.id
+        )
+        expect(response.error_message).to be_present
+      end
     end
   end # End describe StripeWrapper::Customer
 
@@ -102,7 +140,6 @@ describe StripeWrapper do
     )
   end
 end
-
 
 describe StripeWrapper do
   describe StripeWrapper::Charge do

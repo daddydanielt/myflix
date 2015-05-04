@@ -4,6 +4,6 @@ class Review < ActiveRecord::Base
 
   #validates :rating, presence: true
   #validates :content, presence: true
-  validates_presence_of :rating, :content  
+  validates_presence_of :rating, :content
   
 end

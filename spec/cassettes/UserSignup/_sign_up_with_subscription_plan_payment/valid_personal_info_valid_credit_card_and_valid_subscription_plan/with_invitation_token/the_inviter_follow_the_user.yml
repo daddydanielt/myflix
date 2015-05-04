@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 01 May 2015 08:18:03 GMT
+      - Mon, 04 May 2015 03:29:49 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_w0bVpE5oDEDbFBlD
+      - req_H2dogOEh6oSy44ii
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15xZLTHm1LsTwnnZaTusiYUs",
+          "id": "tok_15yaHBHm1LsTwnnZLYMLnTsS",
           "livemode": false,
-          "created": 1430468283,
+          "created": 1430710189,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15xZLTHm1LsTwnnZEohLVgvY",
+            "id": "card_15yaHBHm1LsTwnnZWDqXNspy",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -87,16 +87,16 @@ http_interactions:
             "dynamic_last4": null,
             "customer": null
           },
-          "client_ip": "111.83.37.14"
+          "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Fri, 01 May 2015 08:18:04 GMT
+  recorded_at: Mon, 04 May 2015 03:29:49 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: source=tok_15xZLTHm1LsTwnnZaTusiYUs&plan=myflix_base&email=bernie%40erdmanmertz.com
+      string: source=tok_15yaHBHm1LsTwnnZLYMLnTsS&plan=myflix_base&email=lucinda%40gusikowski.net
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -122,7 +122,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 01 May 2015 08:18:05 GMT
+      - Mon, 04 May 2015 03:29:50 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_LLIQQLMEpFog8sRL
+      - req_EorTTIO3aHSnrRFA
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -150,21 +150,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1430468285,
-          "id": "cus_69t74yTt7jjIjH",
+          "created": 1430710190,
+          "id": "cus_6Aw9QWwFkbtlAS",
           "livemode": false,
           "description": null,
-          "email": "bernie@erdmanmertz.com",
+          "email": "lucinda@gusikowski.net",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_69t74yTt7jjIjH/subscriptions",
+            "url": "/v1/customers/cus_6Aw9QWwFkbtlAS/subscriptions",
             "data": [
               {
-                "id": "sub_69t7lAim2Q5kxF",
+                "id": "sub_6Aw9kzmrj5DfLE",
                 "plan": {
                   "interval": "month",
                   "name": "the base plan for myflix",
@@ -181,12 +181,12 @@ http_interactions:
                   "statement_description": null
                 },
                 "object": "subscription",
-                "start": 1430468285,
+                "start": 1430710190,
                 "status": "active",
-                "customer": "cus_69t74yTt7jjIjH",
+                "customer": "cus_6Aw9QWwFkbtlAS",
                 "cancel_at_period_end": false,
-                "current_period_start": 1430468285,
-                "current_period_end": 1433146685,
+                "current_period_start": 1430710190,
+                "current_period_end": 1433388590,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -206,10 +206,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_69t74yTt7jjIjH/cards",
+            "url": "/v1/customers/cus_6Aw9QWwFkbtlAS/cards",
             "data": [
               {
-                "id": "card_15xZLTHm1LsTwnnZEohLVgvY",
+                "id": "card_15yaHBHm1LsTwnnZWDqXNspy",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -230,19 +230,19 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_69t74yTt7jjIjH"
+                "customer": "cus_6Aw9QWwFkbtlAS"
               }
             ]
           },
-          "default_card": "card_15xZLTHm1LsTwnnZEohLVgvY",
+          "default_card": "card_15yaHBHm1LsTwnnZWDqXNspy",
           "sources": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_69t74yTt7jjIjH/sources",
+            "url": "/v1/customers/cus_6Aw9QWwFkbtlAS/sources",
             "data": [
               {
-                "id": "card_15xZLTHm1LsTwnnZEohLVgvY",
+                "id": "card_15yaHBHm1LsTwnnZWDqXNspy",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
@@ -263,12 +263,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_69t74yTt7jjIjH"
+                "customer": "cus_6Aw9QWwFkbtlAS"
               }
             ]
           },
-          "default_source": "card_15xZLTHm1LsTwnnZEohLVgvY"
+          "default_source": "card_15yaHBHm1LsTwnnZWDqXNspy"
         }
     http_version: 
-  recorded_at: Fri, 01 May 2015 08:18:06 GMT
+  recorded_at: Mon, 04 May 2015 03:29:50 GMT
 recorded_with: VCR 2.9.3

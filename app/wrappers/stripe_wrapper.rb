@@ -1,9 +1,10 @@
 module StripeWrapper
   class Customer
-    attr_reader :response, :status
+    attr_reader :response, :status, :token
     def initialize( options = {} )
       @response = options[:response]
       @status = options[:status]
+      @token = options[:token]
     end
     def self.create( options={} )
       begin
@@ -12,9 +13,9 @@ module StripeWrapper
         :plan => options[:plan] ,
         :email => options[:user].email
       )
-      new(response: customer, status: :success)
+      new(response: customer, status: :success, token: customer.id)
       rescue Stripe::InvalidRequestError, Stripe::CardError => e
-        new(response: e, status: :error)
+        new(response: e, status: :error )
       end
     end
     def fail?

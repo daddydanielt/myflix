@@ -15,9 +15,15 @@ describe UserSignup do
         after { ActionMailer::Base.deliveries.clear }
         it_behaves_like "send email after successfully sing up"
         it "create the user" do
+          #result = UserSignup.new(user, sign_up_params).sign_up( subscription_plan: subscription_plan)
+          expect(User.count).to eq(1)
           expect(User.first.email).to eq(user_params[:email])
           expect(User.first.full_name).to eq(user_params[:full_name])
           expect(User.first.authenticate(user_params[:password])).to eq(User.first)
+        end
+        it "stores the customer toke from stripe" do
+          #result = UserSignup.new(user, sign_up_params).sign_up( subscription_plan: subscription_plan)
+          expect(User.first.customer_token).to be_present
         end
       end
       context "with invitation_token" do

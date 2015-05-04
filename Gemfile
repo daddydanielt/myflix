@@ -22,6 +22,8 @@ gem 'figaro'
 gem 'carrierwave-aws'
 #--->
 gem 'draper'
+#--->
+gem 'stripe_event'
 
 group :production do
   gem 'rails_12factor'

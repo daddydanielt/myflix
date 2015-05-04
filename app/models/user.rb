@@ -23,8 +23,9 @@
   #validates_presence_of
   #validates_uniqueness_of
 
+  #has_many :payments, -> { order "created_at DESC" }
 
-  def the_users_following_me
+def the_users_following_me
     following_me_relationships.map(&:follower)
   end
 
@@ -60,6 +61,9 @@
     my_queues.map(&:video).include? video
   end
 
+  def deactivate!
+    update_attributes(active:false)
+  end
   
   #def generate_token
   #  self.token = SecureRandom.urlsafe_base64

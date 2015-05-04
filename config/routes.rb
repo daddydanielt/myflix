@@ -1,5 +1,5 @@
 Myflix::Application.routes.draw do
-  
+
   get 'ui(/:action)', controller: 'ui'
 
   root to: 'pages#front'
@@ -58,6 +58,7 @@ Myflix::Application.routes.draw do
 
   namespace :admin do
     resources :videos, only: [:new, :create]
+    resources :payments, only: [:index]
   end
 
   get '/people', to: 'relationships#following'
@@ -67,5 +68,9 @@ Myflix::Application.routes.draw do
     #  get 'following', to: 'relationships#following'
     #end
   end
+
+  #--------------------------------#
+  mount StripeEvent::Engine, at: '/stripe_events' # provide a custom path
+  #--------------------------------#
 
 end

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&source=tok_15w5fYHm1LsTwnnZksnOCrCh&description=Sing%20up%20charge%20for%20bob_tseng%40test.com
+      string: amount=999&currency=usd&source=tok_15yaFlHm1LsTwnnZNPbbm7MU&description=Sing%20up%20charge%20for%20bob_tseng%40test.com
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -19,8 +19,8 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.21.0","lang":"ruby","lang_version":"2.0.0 p598 (2014-11-13)","platform":"x86_64-darwin14.0.0","engine":"ruby","publisher":"stripe","uname":"Darwin
-        DanielTseng 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05 PDT 2015;
-        root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng"}'
+        DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
+        PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
       - '119'
   response:
@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Mon, 27 Apr 2015 06:24:41 GMT
+      - Mon, 04 May 2015 03:28:22 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_FEiBFlcWf6k4Kvz8
+      - req_orGTdjTWXpXx625I
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,9 +58,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_15w5fZHm1LsTwnnZqM3rcbQ1",
+          "id": "ch_15yaFmHm1LsTwnnZeAweTn3s",
           "object": "charge",
-          "created": 1430115881,
+          "created": 1430710102,
           "livemode": false,
           "paid": true,
           "status": "paid",
@@ -68,7 +68,7 @@ http_interactions:
           "currency": "usd",
           "refunded": false,
           "source": {
-            "id": "card_15w5fYHm1LsTwnnZekAZcSON",
+            "id": "card_15yaFlHm1LsTwnnZzqg46iH8",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -93,7 +93,7 @@ http_interactions:
           },
           "captured": true,
           "card": {
-            "id": "card_15w5fYHm1LsTwnnZekAZcSON",
+            "id": "card_15yaFlHm1LsTwnnZzqg46iH8",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -116,7 +116,7 @@ http_interactions:
             "metadata": {},
             "customer": null
           },
-          "balance_transaction": "txn_15w5fZHm1LsTwnnZ4mG5W0PN",
+          "balance_transaction": "txn_15yaFmHm1LsTwnnZnA3SEaHN",
           "failure_message": null,
           "failure_code": null,
           "amount_refunded": 0,
@@ -135,11 +135,11 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/charges/ch_15w5fZHm1LsTwnnZqM3rcbQ1/refunds",
+            "url": "/v1/charges/ch_15yaFmHm1LsTwnnZeAweTn3s/refunds",
             "data": []
           },
           "statement_description": null
         }
     http_version: 
-  recorded_at: Mon, 27 Apr 2015 06:24:42 GMT
+  recorded_at: Mon, 04 May 2015 03:28:22 GMT
 recorded_with: VCR 2.9.3

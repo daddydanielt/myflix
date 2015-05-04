@@ -26,6 +26,7 @@ Capybara.server_port = 52662
 #2015.04.27
 # using :webkit as javascript driver
 # ref: https://github.com/thoughtbot/capybara-webkit
+
 Capybara.javascript_driver = :webkit
 
 

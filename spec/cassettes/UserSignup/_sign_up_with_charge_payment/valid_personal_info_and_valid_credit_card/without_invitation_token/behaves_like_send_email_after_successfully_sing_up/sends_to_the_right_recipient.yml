@@ -31,7 +31,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 01 May 2015 08:31:48 GMT
+      - Mon, 04 May 2015 03:30:23 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_6riiNyjnkYmA8tRR
+      - req_ZKhfdqD7qSxJVk60
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15xZYmHm1LsTwnnZbYugqeEu",
+          "id": "tok_15yaHjHm1LsTwnnZ0Q7iZziR",
           "livemode": false,
-          "created": 1430469108,
+          "created": 1430710223,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15xZYmHm1LsTwnnZvBkAEGmN",
+            "id": "card_15yaHjHm1LsTwnnZCodrKIaP",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -87,16 +87,16 @@ http_interactions:
             "dynamic_last4": null,
             "customer": null
           },
-          "client_ip": "111.83.37.14"
+          "client_ip": "111.83.35.18"
         }
     http_version: 
-  recorded_at: Fri, 01 May 2015 08:31:49 GMT
+  recorded_at: Mon, 04 May 2015 03:30:23 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/charges
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&source=tok_15xZYmHm1LsTwnnZbYugqeEu&description=Sing%20up%20charge%20for%20may%40nicolas.com
+      string: amount=999&currency=usd&source=tok_15yaHjHm1LsTwnnZ0Q7iZziR&description=Sing%20up%20charge%20for%20maximus%40wehner.biz
     headers:
       Accept:
       - '*/*; q=0.5, application/xml'
@@ -113,7 +113,7 @@ http_interactions:
         DanielTseng.local 14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 11:59:05
         PDT 2015; root:xnu-2782.20.48~5/RELEASE_X86_64 x86_64","hostname":"DanielTseng.local"}'
       Content-Length:
-      - '116'
+      - '119'
   response:
     status:
       code: 200
@@ -122,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Fri, 01 May 2015 08:31:50 GMT
+      - Mon, 04 May 2015 03:30:25 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '2016'
+      - '2019'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_86zpErIPAqrsUgFt
+      - req_GINaraAmivEeQmuO
       Stripe-Version:
       - '2014-08-04'
       Strict-Transport-Security:
@@ -149,9 +149,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "ch_15xZYoHm1LsTwnnZizfZB4Kb",
+          "id": "ch_15yaHkHm1LsTwnnZgfGXwlge",
           "object": "charge",
-          "created": 1430469110,
+          "created": 1430710224,
           "livemode": false,
           "paid": true,
           "status": "paid",
@@ -159,7 +159,7 @@ http_interactions:
           "currency": "usd",
           "refunded": false,
           "source": {
-            "id": "card_15xZYmHm1LsTwnnZvBkAEGmN",
+            "id": "card_15yaHjHm1LsTwnnZCodrKIaP",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -184,7 +184,7 @@ http_interactions:
           },
           "captured": true,
           "card": {
-            "id": "card_15xZYmHm1LsTwnnZvBkAEGmN",
+            "id": "card_15yaHjHm1LsTwnnZCodrKIaP",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -207,13 +207,13 @@ http_interactions:
             "metadata": {},
             "customer": null
           },
-          "balance_transaction": "txn_15xZYoHm1LsTwnnZBhqDD2AH",
+          "balance_transaction": "txn_15yaHlHm1LsTwnnZP3HbEnvD",
           "failure_message": null,
           "failure_code": null,
           "amount_refunded": 0,
           "customer": null,
           "invoice": null,
-          "description": "Sing up charge for may@nicolas.com",
+          "description": "Sing up charge for maximus@wehner.biz",
           "dispute": null,
           "metadata": {},
           "statement_descriptor": null,
@@ -226,11 +226,11 @@ http_interactions:
             "object": "list",
             "total_count": 0,
             "has_more": false,
-            "url": "/v1/charges/ch_15xZYoHm1LsTwnnZizfZB4Kb/refunds",
+            "url": "/v1/charges/ch_15yaHkHm1LsTwnnZgfGXwlge/refunds",
             "data": []
           },
           "statement_description": null
         }
     http_version: 
-  recorded_at: Fri, 01 May 2015 08:31:51 GMT
+  recorded_at: Mon, 04 May 2015 03:30:25 GMT
 recorded_with: VCR 2.9.3

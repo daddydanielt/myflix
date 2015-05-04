@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 describe User do
+  #--->
+  # testing for fun
+  #it "should return active value" do
+  #  u = Fabricate(:user, active: false)
+  #  binding.pry
+  #  expect(User.first.active).to be_falsey
+  #end
+  #-->
+
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_presence_of(:full_name) }
@@ -13,6 +22,7 @@ describe User do
   it { should have_many(:following_relationships) }
   it { should have_many(:following_me_relationships) }
 
+
   #--->
   #it "generates a random token when the user is created" do
   #  mary = Fabricate(:user)
@@ -23,7 +33,14 @@ describe User do
   it_behaves_like "tokenable" do
     let(:token) { Fabricate(:user).token }
   end
-  #--->
+  
+  describe "#deactivate!" do
+    it "update active to be falsey" do
+      user = Fabricate(:user, active: true)
+      user.deactivate!
+      expect(user).not_to be_active
+    end
+  end
 
   describe "#is_my_queue_video?" do
     it "returns true if the user has already queued this video." do
